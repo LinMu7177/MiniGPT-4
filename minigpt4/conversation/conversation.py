@@ -8,7 +8,7 @@ from transformers import StoppingCriteria, StoppingCriteriaList
 
 import dataclasses
 from enum import auto, Enum
-from typing import List, Tuple, Any
+from typing import List, Tuple, Dict, Any
 
 from minigpt4.common.registry import registry
 
@@ -33,6 +33,13 @@ class Conversation:
 
     skip_next: bool = False
     conv_id: Any = None
+
+    cropped_boxes: Dict = None
+    cropped_detect_boxes: Dict = None
+
+    load_subimages: bool = False
+
+
 
     def get_prompt(self):
         if self.sep_style == SeparatorStyle.SINGLE:
@@ -192,6 +199,31 @@ class Chat:
     def get_context_emb(self, conv, img_list):
         prompt = conv.get_prompt()
         prompt_segs = prompt.split('<ImageHere>')
+
+        if conv.cropped_boxes is not None and conv.load_subimages is False:
+            # Q_A_prompt = prompt_segs.pop()
+            # Q_A_prompt = Q_A_prompt.replace('#SAM#', 'Now, start answering human questions.')
+            sam_prompt = prompt_segs[0].replace('Please answer my questions.','') + "<ImageHere>"
+            sam_prompt += "</Img>###Assistant:In order to better understand this image, I have segmented this image and identified the segmented parts one by one. The following are some segmented subimages and the corresponding detection results."
+
+            for k in conv.cropped_boxes.keys():
+                subimage_detect_res = conv.cropped_detect_boxes[k]
+                subimage_img = conv.cropped_boxes[k]
+                sam_prompt += "The subimage is as follows: <Img><ImageHere></Img>, which is roughly detected as " + subimage_detect_res + "."
+                image = self.vis_processor(subimage_img).unsqueeze(0).to(self.device)
+                image_emb, _ = self.model.encode_img(image)
+                img_list.append(image_emb)
+
+            conv.system = sam_prompt
+            conv.messages[0] = ['Assistant','Now, start answering human questions.']
+            conv.load_subimages = True
+
+            prompt = conv.get_prompt()
+            prompt_segs = prompt.split('<ImageHere>')
+
+            # prompt_segs = sam_prompt.split('<ImageHere>')
+            # prompt_segs.append(Q_A_prompt)
+
         assert len(prompt_segs) == len(img_list) + 1, "Unmatched numbers of image placeholders and images."
         seg_tokens = [
             self.model.llama_tokenizer(
@@ -200,7 +232,10 @@ class Chat:
             for i, seg in enumerate(prompt_segs)
         ]
         seg_embs = [self.model.llama_model.model.embed_tokens(seg_t) for seg_t in seg_tokens]
-        mixed_embs = [emb for pair in zip(seg_embs[:-1], img_list) for emb in pair] + [seg_embs[-1]]
+        if conv.cropped_boxes is not None:
+            mixed_embs = [emb for pair in zip(seg_embs[:-1], img_list) for emb in pair] + [seg_embs[-1]]
+        else:
+            mixed_embs = [emb for pair in zip(seg_embs[:-1], img_list) for emb in pair] + [seg_embs[-1]]
         mixed_embs = torch.cat(mixed_embs, dim=1)
         return mixed_embs
 

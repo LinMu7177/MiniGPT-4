@@ -121,7 +121,7 @@ torchrun --nproc-per-node NUM_GPU train.py --cfg-path train_configs/minigpt4_sta
 ```
 
 A MiniGPT-4 checkpoint with only stage one training can be downloaded 
-[here (13B)](https://drive.google.com/file/d/1u9FRRBB3VovP1HxCAlpD9Lw4t4P6-Yq8/view?usp=share_link) or [here (7B)](https://drive.google.com/file/d/1HihQtCEXUyBM1i9DQbaK934wW3TZi-h5/view?usp=share_link).
+[here](https://drive.google.com/file/d/1u9FRRBB3VovP1HxCAlpD9Lw4t4P6-Yq8/view?usp=share_link).
 Compared to the model after stage two, this checkpoint generate incomplete and repeated sentences frequently.
 
 
@@ -155,11 +155,11 @@ After the second stage alignment, MiniGPT-4 is able to talk about the image cohe
 
 If you're using MiniGPT-4 in your research or applications, please cite using this BibTeX:
 ```bibtex
-@article{zhu2023minigpt,
-  title={MiniGPT-4: Enhancing Vision-Language Understanding with Advanced Large Language Models},
-  author={Zhu, Deyao and Chen, Jun and Shen, Xiaoqian and Li, Xiang and Elhoseiny, Mohamed},
-  journal={arXiv preprint arXiv:2304.10592},
-  year={2023}
+@misc{zhu2022minigpt4,
+      title={MiniGPT-4: Enhancing Vision-language Understanding with Advanced Large Language Models}, 
+      author={Deyao Zhu and Jun Chen and Xiaoqian Shen and Xiang Li and Mohamed Elhoseiny},
+      journal={arXiv preprint arXiv:2304.10592},
+      year={2023},
 }
 ```
 
