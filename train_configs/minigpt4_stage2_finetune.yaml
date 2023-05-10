@@ -7,7 +7,7 @@ model:
   end_sym: "###"
   prompt_path: "prompts/alignment.txt"
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/path/to/stage1/checkpoint/'
+  ckpt: '/mnt/local/wwx/Models/MiniGPT-4/pretrained_minigpt4_stage1.pth'
 
 
 datasets:
@@ -37,7 +37,7 @@ run:
   warmup_steps: 200
 
   seed: 42
-  output_dir: "output/minigpt4_stage2_finetune"
+  output_dir: "/mnt/local/wwx/Models/MiniGPT-4/output/minigpt4_stage2_finetune"
 
   amp: True
   resume_ckpt_path: null
