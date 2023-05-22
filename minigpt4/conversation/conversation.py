@@ -8,10 +8,12 @@ from transformers import StoppingCriteria, StoppingCriteriaList
 
 import dataclasses
 from enum import auto, Enum
-from typing import List, Tuple, Any
+from typing import List, Tuple, Dict, Any
 
 from minigpt4.common.registry import registry
 
+import nltk
+from nltk import pos_tag,word_tokenize
 
 class SeparatorStyle(Enum):
     """Different separator style."""
@@ -33,6 +35,13 @@ class Conversation:
 
     skip_next: bool = False
     conv_id: Any = None
+
+    cropped_boxes: Dict = None
+    cropped_position_boxes: Dict = None
+    cropped_encoder_boxes: Dict = None
+
+    load_subimages: bool = False
+
 
     def get_prompt(self):
         if self.sep_style == SeparatorStyle.SINGLE:
@@ -134,8 +143,64 @@ class Chat:
         else:
             conv.append_message(conv.roles[0], text)
 
+    def add_image_tag_to_query(self, query, encoder_boxes, img_list):
+        # Extract nouns (including adjectives)
+        words = word_tokenize(query)
+        tmp, nn_words = None, []
+        for word, tag in pos_tag(words):
+            if tag == "JJ":
+                tmp_adj = word
+            elif tag == "NN":
+                if tmp_adj is not None:
+                    if tmp_adj + " " + word in query:
+                        nn_words.append(tmp_adj + " " + word)
+                    else:
+                        nn_words.append(word)
+                    tmp_adj = None
+                else:
+                    nn_words.append(word)
+
+        # words = word_tokenize(query)
+        # nn_words = [word for word, tag in pos_tag(words) if tag in ["NN"]]
+
+        nn_words_tokens = [
+            self.model.llama_tokenizer(
+                seg, return_tensors="pt", add_special_tokens=i == -1).to(self.device).input_ids
+            # only add bos to the first seg
+            for i, seg in enumerate(nn_words)
+        ]
+
+        nn_words_embs = [self.model.llama_model.model.embed_tokens(seg_t) for seg_t in nn_words_tokens]
+
+        # cosine_similarity
+        word_img_sim_pair = {}
+        for i, nnp_word_emb in enumerate(nn_words_embs):
+            score = 0
+            if nnp_word_emb.size()[1] > 1:
+                nnp_word_emb = nnp_word_emb.squeeze()
+                nnp_word_emb = nnp_word_emb.sum(dim=0) / nnp_word_emb.size()[0]
+            else:
+                nnp_word_emb = nnp_word_emb.squeeze()
+            for j, encoder_box in enumerate(list(encoder_boxes.values())):
+                tmp = torch.cosine_similarity(nnp_word_emb, encoder_box.squeeze(), dim=1).sum()
+                if tmp > score:
+                    word_img_sim_pair[nn_words[i]] = j
+                    score = tmp
+
+            # Add the most similar image calculated to the img_list
+            img_list.append(list(encoder_boxes.values())[word_img_sim_pair[nn_words[i]]])
+
+        for word in nn_words:
+            query = query.replace(word,  word +' <Img><ImageHere></Img> ')
+
+        return query, img_list
+
     def answer(self, conv, img_list, max_new_tokens=300, num_beams=1, min_length=1, top_p=0.9,
                repetition_penalty=1.0, length_penalty=1, temperature=1.0, max_length=2000):
+
+        if conv.cropped_encoder_boxes is not None:
+            conv.messages[-1][1], img_list = self.add_image_tag_to_query(conv.messages[-1][1], conv.cropped_encoder_boxes, img_list)
+
         conv.append_message(conv.roles[1], None)
         embs = self.get_context_emb(conv, img_list)
 
@@ -203,5 +268,8 @@ class Chat:
         mixed_embs = [emb for pair in zip(seg_embs[:-1], img_list) for emb in pair] + [seg_embs[-1]]
         mixed_embs = torch.cat(mixed_embs, dim=1)
         return mixed_embs
+
+
+
 
 

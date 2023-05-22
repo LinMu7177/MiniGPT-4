@@ -1,6 +1,7 @@
 import argparse
 import os
 import random
+import copy
 
 import numpy as np
 import torch
@@ -12,6 +13,9 @@ from minigpt4.common.dist_utils import get_rank
 from minigpt4.common.registry import registry
 from minigpt4.conversation.conversation import Chat, CONV_VISION
 
+from PIL import Image, ImageDraw
+from segment_anything import build_sam, SamAutomaticMaskGenerator
+
 # imports modules for registration
 from minigpt4.datasets.builders import *
 from minigpt4.models import *
@@ -19,6 +23,24 @@ from minigpt4.processors import *
 from minigpt4.runners import *
 from minigpt4.tasks import *
 
+def convert_box_xywh_to_xyxy(box):
+    x1 = box[0]
+    y1 = box[1]
+    x2 = box[0] + box[2]
+    y2 = box[1] + box[3]
+    return [x1, y1, x2, y2]
+
+def segment_image(image, segmentation_mask):
+    image_array = np.array(image)
+    segmented_image_array = np.zeros_like(image_array)
+    segmented_image_array[segmentation_mask] = image_array[segmentation_mask]
+    segmented_image = Image.fromarray(segmented_image_array)
+    black_image = Image.new("RGB", image.size, (0, 0, 0))
+    transparency_mask = np.zeros_like(segmentation_mask, dtype=np.uint8)
+    transparency_mask[segmentation_mask] = 255
+    transparency_mask_image = Image.fromarray(transparency_mask, mode='L')
+    black_image.paste(segmented_image, mask=transparency_mask_image)
+    return black_image
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Demo")
@@ -90,8 +112,41 @@ def gradio_ask(user_message, chatbot, chat_state):
     chatbot = chatbot + [[user_message, None]]
     return '', chatbot, chat_state
 
+def sam_and_encoder_raw_image(image, chat_state, num_beams, temperature):
+    cropped_boxes = {}
+    cropped_position_boxes = {}
+    raw_image = np.array(image).astype(np.uint8)
 
-def gradio_answer(chatbot, chat_state, img_list, num_beams, temperature):
+    # Download the SAM model weights to load them here
+    mask_generator = SamAutomaticMaskGenerator(build_sam(
+        checkpoint="/home/tsingqguo/wwx/projects/jupyter/Segment_Anything/notebooks/sam_vit_h_4b8939.pth"))
+
+    # SAM raw image
+    masks = mask_generator.generate(raw_image)
+    for index, mask in enumerate(masks):
+        cropped_boxes['image_' + str(index)] = segment_image(image, mask["segmentation"]).crop(
+            convert_box_xywh_to_xyxy(mask["bbox"]))
+
+        # Pending further confirmation！！！！！！！
+        cropped_position_boxes['image_' + str(index)] = mask["point_coords"]
+
+    # encoder the cropped_image
+    cropped_encoder_boxes = {}
+    for key, cropped in cropped_boxes.items():
+        image = chat.vis_processor(cropped).unsqueeze(0).to(chat.device)
+        image_emb, _ = chat.model.encode_img(image)
+        cropped_encoder_boxes[key] = image_emb
+
+    chat_state.cropped_boxes = cropped_boxes
+    chat_state.cropped_encoder_boxes = cropped_encoder_boxes
+
+def gradio_answer(chatbot, chat_state, image, img_list, num_beams, temperature):
+
+    if chatbot[-1][0] == "-SAM-":
+        sam_and_encoder_raw_image(image, chat_state, num_beams, temperature)
+        chatbot[-1][1] = "SAMed Image!"
+        return chatbot, chat_state, img_list
+
     llm_message = chat.answer(conv=chat_state,
                               img_list=img_list,
                               num_beams=num_beams,
@@ -144,9 +199,9 @@ with gr.Blocks() as demo:
             text_input = gr.Textbox(label='User', placeholder='Please upload your image first', interactive=False)
     
     upload_button.click(upload_img, [image, text_input, chat_state], [image, text_input, upload_button, chat_state, img_list])
-    
+
     text_input.submit(gradio_ask, [text_input, chatbot, chat_state], [text_input, chatbot, chat_state]).then(
-        gradio_answer, [chatbot, chat_state, img_list, num_beams, temperature], [chatbot, chat_state, img_list]
+        gradio_answer, [chatbot, chat_state, image, img_list, num_beams, temperature], [chatbot, chat_state, img_list]
     )
     clear.click(gradio_reset, [chat_state, img_list], [chatbot, image, text_input, upload_button, chat_state, img_list], queue=False)
 
