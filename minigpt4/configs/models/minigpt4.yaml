@@ -12,7 +12,7 @@ model:
   # Q-Former
   num_query_token: 32
 
-  # Vicuna
+  # Vicuna ---
   llama_model: "/path/to/vicuna/weights/"
 
   # generation configs
