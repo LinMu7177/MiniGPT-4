@@ -12,8 +12,8 @@ model:
   # Q-Former
   num_query_token: 32
 
-  # Vicuna ---
-  llama_model: "/path/to/vicuna/weights/"
+  # Vicuna
+  llama_model: "/mnt/local/wwx/Models/MiniGPT-4/weight/"
 
   # generation configs
   prompt: ""
