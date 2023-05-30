@@ -119,7 +119,7 @@ CONV_VISION = Conversation(
 
 
 class Chat:
-    def __init__(self, model, vis_processor, device='cuda:0'):
+    def __init__(self, model, vis_processor, device='cuda:7'):
         self.device = device
         self.model = model
         self.vis_processor = vis_processor

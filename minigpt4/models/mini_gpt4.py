@@ -126,7 +126,7 @@ class MiniGPT4(Blip2Base):
         self.visual_encoder.float()
 
     def encode_img(self, image):
-        device = image.device
+        device = self.device
         if self.low_resource:
             self.vit_to_cpu()
             image = image.to("cpu")

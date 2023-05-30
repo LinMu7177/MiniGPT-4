@@ -7,7 +7,7 @@ model:
   end_sym: "###"
   prompt_path: "prompts/alignment.txt"
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/mnt/local/wwx/Models/MiniGPT-4/pretrained_minigpt4_stage1.pth'
+  ckpt: '/mnt/local/wwx/Models/MiniGPT-4/pretrained_minigpt4_7b_stage1.pth'
 
 
 datasets:
@@ -45,7 +45,7 @@ run:
   evaluate: False 
   train_splits: ["train"]
 
-  device: "cuda"
+  device: "cuda:7"
   world_size: 1
   dist_url: "env://"
   distributed: True
