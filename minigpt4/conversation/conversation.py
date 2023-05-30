@@ -126,6 +126,8 @@ class Chat:
         stop_words_ids = [torch.tensor([835]).to(self.device),
                           torch.tensor([2277, 29937]).to(self.device)]  # '###' can be encoded in two different ways.
         self.stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=stop_words_ids)])
+        self.org_img_list = []
+        self.masked_img_list = []
 
     def ask(self, text, conv):
         if len(conv.messages) > 0 and conv.messages[-1][0] == conv.roles[0] \
@@ -171,6 +173,7 @@ class Chat:
         return output_text, output_token.cpu().numpy()
 
     def upload_img(self, image, conv, img_list):
+        self.org_img_list.append(image)
         if isinstance(image, str):  # is a image path
             raw_image = Image.open(image).convert('RGB')
             image = self.vis_processor(raw_image).unsqueeze(0).to(self.device)
@@ -182,8 +185,10 @@ class Chat:
                 image = image.unsqueeze(0)
             image = image.to(self.device)
 
-        image_emb, _ = self.model.encode_img(image)
-        img_list.append(image_emb)
+        # image_emb, _ = self.model.encode_img(image)
+        # img_list.append(image_emb)
+        img_list.append(image)
+
         conv.append_message(conv.roles[0], "<Img><ImageHere></Img>")
         msg = "Received."
         # self.conv.append_message(self.conv.roles[1], msg)
@@ -193,15 +198,48 @@ class Chat:
         prompt = conv.get_prompt()
         prompt_segs = prompt.split('<ImageHere>')
         assert len(prompt_segs) == len(img_list) + 1, "Unmatched numbers of image placeholders and images."
+
+        org_image = self.vis_processor(self.org_img_list[0]).unsqueeze(0).to(self.device)
+
         seg_tokens = [
             self.model.llama_tokenizer(
                 seg, return_tensors="pt", add_special_tokens=i == 0).to(self.device).input_ids
             # only add bos to the first seg
             for i, seg in enumerate(prompt_segs)
         ]
+
         seg_embs = [self.model.llama_model.model.embed_tokens(seg_t) for seg_t in seg_tokens]
+
+        seg_tokens_for_masker = self.padding_sequence(seg_tokens[-1][0], 112, self.model.llama_tokenizer.pad_token_id)
+        seg_embs_for_masker = self.model.llama_model.model.embed_tokens(seg_tokens_for_masker)
+        seg_embs_for_masker = seg_embs_for_masker.reshape(28,-1)
+
+
+        if self.model.low_resource:
+            self.model.img_masker.to("cpu")
+            self.model.img_masker.float()
+            seg_embs_for_masker = seg_embs_for_masker.to("cpu").float()
+            org_image = org_image.to("cpu")
+
+        image_mask = self.model.img_masker.forward_features(seg_embs_for_masker, org_image)
+
+        self.masked_img_list.append(image_mask * org_image)
+
+        image = self.vis_processor(self.masked_img_list[-1]).unsqueeze(0).to(self.device)
+        image_emb, _ = self.model.encode_img(image)
+        img_list.pop()
+        img_list.append(image_emb)
+
         mixed_embs = [emb for pair in zip(seg_embs[:-1], img_list) for emb in pair] + [seg_embs[-1]]
         mixed_embs = torch.cat(mixed_embs, dim=1)
         return mixed_embs
 
+    # right padding for tensor seq
+    def padding_sequence(self, seq, max_len, pad_token_id):
+        seq_len = len(seq)
+        if seq_len < max_len:
+            seq = torch.cat([seq, torch.ones(max_len - seq_len, dtype=torch.long).to(self.device) * pad_token_id])
+        else:
+            seq = seq[:max_len]
+        return seq
 

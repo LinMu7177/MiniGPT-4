@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a0fec348-c70f-4fbf-925a-6eed3fe91515" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/LICENSE.md" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE_Lavis.md" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE_Lavis.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MiniGPT_4.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/MiniGPT_4.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PrepareVicuna.md" beforeDir="false" afterPath="$PROJECT_DIR$/PrepareVicuna.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/README_1_STAGE.md" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/README_1_STAGE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/README_2_STAGE.md" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/README_2_STAGE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/convert_cc_sbu.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/convert_cc_sbu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/convert_laion.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/convert_laion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/download_cc_sbu.sh" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/download_cc_sbu.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/download_laion.sh" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/download_laion.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environment.yml" beforeDir="false" afterPath="$PROJECT_DIR$/environment.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eval_configs/minigpt4_eval.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/eval_configs/minigpt4_eval.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/ad_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/ad_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/ad_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/ad_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/cook_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/cook_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/cook_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/cook_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/describe_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/describe_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/describe_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/describe_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/fact_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/fact_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/fact_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/fact_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/fix_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/fix_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/fix_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/fix_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/fun_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/fun_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/fun_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/fun_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/logo_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/logo_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/op_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/op_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/op_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/op_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/people_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/people_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/people_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/people_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/rhyme_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/rhyme_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/rhyme_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/rhyme_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/story_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/story_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/story_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/story_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/web_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/web_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/wop_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/wop_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/wop_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/examples/wop_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/ad_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/ad_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/ad_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/ad_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/cook_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/cook_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/cook_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/cook_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/describe_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/describe_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/describe_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/describe_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/fact_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/fact_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/fact_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/fact_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/fix_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/fix_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/fix_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/fix_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/fun_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/fun_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/fun_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/fun_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/logo_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/logo_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/op_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/op_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/op_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/op_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/people_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/people_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/people_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/people_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/rhyme_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/rhyme_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/rhyme_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/rhyme_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/story_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/story_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/story_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/story_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/web_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/web_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/wop_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/wop_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/examples/wop_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/examples/wop_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/online_demo.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/online_demo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/figs/overview.png" beforeDir="false" afterPath="$PROJECT_DIR$/figs/overview.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/dist_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/dist_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/gradcam.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/gradcam.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/optims.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/optims.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/registry.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/registry.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/cc_sbu/align.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/cc_sbu/align.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/cc_sbu/defaults.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/cc_sbu/defaults.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/laion/defaults.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/laion/defaults.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/default.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/default.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/models/minigpt4.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/models/minigpt4.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/conversation/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/conversation/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/conversation/conversation.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/conversation/conversation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/builders/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/builders/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/builders/base_dataset_builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/builders/base_dataset_builder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/builders/image_text_pair_builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/builders/image_text_pair_builder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/data_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/data_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/base_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/base_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/caption_datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/caption_datasets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/cc_sbu_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/cc_sbu_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/dataloader_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/dataloader_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/laion_dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/laion_dataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/models/Qformer.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/Qformer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/models/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/models/base_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/base_model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/models/blip2.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/blip2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/models/blip2_outputs.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/blip2_outputs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/models/eva_vit.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/eva_vit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/models/mini_gpt4.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/mini_gpt4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/models/modeling_llama.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/modeling_llama.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/processors/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/processors/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/processors/base_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/processors/base_processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/processors/blip_processors.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/processors/blip_processors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/processors/randaugment.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/processors/randaugment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/runners/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/runners/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/runners/runner_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/runners/runner_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/tasks/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/tasks/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/tasks/base_task.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/tasks/base_task.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/tasks/image_text_pretrain.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/tasks/image_text_pretrain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prompts/alignment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/prompts/alignment.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_configs/minigpt4_stage1_pretrain.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/train_configs/minigpt4_stage1_pretrain.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_configs/minigpt4_stage2_finetune.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/train_configs/minigpt4_stage2_finetune.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/dataset/convert_cc_sbu.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/dataset/download_cc_sbu.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/demo.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/eval_configs/minigpt4_eval.yaml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/minigpt4/conversation/conversation.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/minigpt4/models/Qformer.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/minigpt4/models/mini_gpt4.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/train.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/train_configs/minigpt4_stage2_finetune.yaml" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2PY9u7FPQ6uLWIOxByLFjdzJUeC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.mappings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.highlight.symlinks&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.date&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.permissions&quot;: &quot;false&quot;,
+    &quot;WebServerToolWindowPanel.toolwindow.show.size&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/xuwenwen/Library/CloudStorage/OneDrive-个人/workspace/MiniGPT-4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;PyScientificConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="demo" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="MiniGPT-4" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/home/tsingqguo/anaconda3/envs/sam_and_minigpt4/bin/python" />
+      <option name="SDK_NAME" value="Remote Python 3.9.16 (sftp://tsingqguo@155.69.151.233:32869/home/tsingqguo/anaconda3/envs/sam_and_minigpt4/bin/python)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo.py" />
+      <option name="PARAMETERS" value="--cfg-path eval_configs/minigpt4_eval.yaml --gpu-id 5" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a0fec348-c70f-4fbf-925a-6eed3fe91515" name="Changes" comment="" />
+      <created>1683623368294</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1683623368294</updated>
+      <workItem from="1683623370059" duration="2192000" />
+      <workItem from="1683684957676" duration="40433000" />
+      <workItem from="1684223855296" duration="4722000" />
+      <workItem from="1684742414715" duration="599000" />
+      <workItem from="1684743037944" duration="55734000" />
+      <workItem from="1685022514643" duration="188000" />
+      <workItem from="1685076830598" duration="4991000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4.py</url>
+          <line>197</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
+          <line>143</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/torch/utils/_contextlib.py</url>
+          <line>114</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
+          <line>151</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
+          <line>152</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
+          <line>153</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
+          <line>232</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/modeling_llama.py</url>
+          <line>675</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/modeling_llama.py</url>
+          <line>478</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/modeling_llama.py</url>
+          <line>487</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>1253</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>1236</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>508</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>1272</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>1290</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>1259</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>1282</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>1309</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>1343</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/632596218/1904167162/transformers/generation/utils.py</url>
+          <line>1561</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>357</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>358</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>354</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
+          <line>223</line>
+          <option name="timeStamp" value="96" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>334</line>
+          <option name="timeStamp" value="113" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>325</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>324</line>
+          <option name="timeStamp" value="132" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4.py</url>
+          <line>137</line>
+          <option name="timeStamp" value="133" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
+          <line>212</line>
+          <option name="timeStamp" value="153" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
+          <line>225</line>
+          <option name="timeStamp" value="156" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
+          <line>234</line>
+          <option name="timeStamp" value="157" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MiniGPT_4$demo.coverage" NAME="demo Coverage Results" MODIFIED="1685256830904" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

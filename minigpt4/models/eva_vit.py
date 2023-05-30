@@ -369,7 +369,6 @@ class VisionTransformer(nn.Module):
 
         return features
     
-    
 def interpolate_pos_embed(model, checkpoint_model):
     if 'pos_embed' in checkpoint_model:
         pos_embed_checkpoint = checkpoint_model['pos_embed'].float()
@@ -438,5 +437,61 @@ def create_eva_vit_g(img_size=224,drop_path_rate=0.4,use_checkpoint=False,precis
     
     if precision == "fp16":
 #         model.to("cuda") 
+        convert_weights_to_fp16(model)
+    return model
+
+class MaskerTransformer(VisionTransformer):
+    def __init__(self, use_abs_pos_emb=True, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.text_dim_to_img_dim = nn.Linear(5120 * 4, self.embed_dim)
+        self.x_dim_to_img_dim = nn.Linear(self.embed_dim, 224)
+        num_patches = self.patch_embed.num_patches
+        if use_abs_pos_emb:
+            self.pos_embed = nn.Parameter(torch.zeros(1, num_patches + 28, self.embed_dim))
+        else:
+            self.pos_embed = None
+        self.out_layer = nn.Sigmoid()
+
+    def forward_features(self, text_embs, x):
+        cls_embs = self.text_dim_to_img_dim(text_embs)
+        # cls_tokens = torch.mean(cls_embs, dim=0)
+        # cls_embs = cls_embs.reshape(28, -1)
+        # Expanded the dimension of the cls_tokens from (28,1408) to (28,1,1408)
+        cls_embs = cls_embs.unsqueeze(0)
+
+        x = self.patch_embed(x)
+        batch_size, seq_len, _ = x.size()
+        # cls_tokens = self.cls_token.expand(batch_size, -1, -1)  # stole cls_tokens impl from Phil Wang, thanks
+        x = torch.cat((cls_embs, x), dim=1)
+        if self.pos_embed is not None:
+            x = x + self.pos_embed
+        x = self.pos_drop(x)
+
+        rel_pos_bias = self.rel_pos_bias() if self.rel_pos_bias is not None else None
+        for blk in self.blocks:
+            if self.use_checkpoint:
+                x = checkpoint.checkpoint(blk, x, rel_pos_bias)
+            else:
+                x = blk(x, rel_pos_bias)
+        img_mask = self.x_dim_to_img_dim(x)
+        return self.out_layer(img_mask)
+
+def create_img_masker(img_size=224, drop_path_rate=0.4, use_checkpoint=False, precision="fp16"):
+    model = MaskerTransformer(
+        img_size=img_size,
+        patch_size=16,
+        use_mean_pooling=False,
+        embed_dim=1408,
+        depth=6,
+        num_heads=1408 // 88,
+        mlp_ratio=4.3637,
+        qkv_bias=True,
+        drop_path_rate=drop_path_rate,
+        norm_layer=partial(nn.LayerNorm, eps=1e-6),
+        use_checkpoint=use_checkpoint,
+    )
+
+    if precision == "fp16":
+        #         model.to("cuda")
         convert_weights_to_fp16(model)
     return model

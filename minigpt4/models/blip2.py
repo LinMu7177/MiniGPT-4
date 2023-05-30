@@ -21,7 +21,7 @@ from minigpt4.common.utils import is_url
 from minigpt4.common.logger import MetricLogger
 from minigpt4.models.base_model import BaseModel
 from minigpt4.models.Qformer import BertConfig, BertLMHeadModel
-from minigpt4.models.eva_vit import create_eva_vit_g
+from minigpt4.models.eva_vit import create_eva_vit_g, create_img_masker
 from transformers import BertTokenizer
 
 
@@ -56,6 +56,14 @@ class Blip2Base(BaseModel):
         )
         query_tokens.data.normal_(mean=0.0, std=encoder_config.initializer_range)
         return Qformer, query_tokens
+
+    def init_img_masker(
+        cls, img_size, drop_path_rate, use_grad_checkpoint, precision
+    ):
+        img_masker = create_img_masker(
+            img_size, drop_path_rate, use_grad_checkpoint, precision
+        )
+        return img_masker
 
     @classmethod
     def init_vision_encoder(
