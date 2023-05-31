@@ -40,7 +40,7 @@ class SmoothedValue(object):
         """
         if not dist_utils.is_dist_avail_and_initialized():
             return
-        t = torch.tensor([self.count, self.total], dtype=torch.float64, device="cuda:7")
+        t = torch.tensor([self.count, self.total], dtype=torch.float64, device="cuda")
         dist.barrier()
         dist.all_reduce(t)
         t = t.tolist()

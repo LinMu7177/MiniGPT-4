@@ -405,7 +405,7 @@ def create_runner_config_validator():
     validator.add_argument(
         "device",
         type=str,
-        choices=["cpu", "cuda:7"],
+        choices=["cpu", "cuda"],
         help="Device to use. Support 'cuda' or 'cpu' as for now.",
     )
     validator.add_argument(
