@@ -36,12 +36,6 @@ from torch.utils.data import DataLoader, DistributedSampler
 
 @registry.register_runner("runner_base")
 class RunnerBase:
-    """
-    A runner class to train and evaluate a model given a task and datasets.
-
-    The runner uses pytorch distributed data parallel by default. Future release
-    will support other distributed frameworks.
-    """
 
     def __init__(self, cfg, task, model, datasets, job_id):
         self.config = cfg
