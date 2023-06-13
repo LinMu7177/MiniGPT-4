@@ -139,3 +139,35 @@ class Blip2ImageEvalProcessor(BlipImageBaseProcessor):
         std = cfg.get("std", None)
 
         return cls(image_size=image_size, mean=mean, std=std)
+
+@registry.register_processor("blip_question")
+class BlipQuestionProcessor(BaseProcessor):
+    def __init__(self, max_words=50):
+        self.max_words = max_words
+
+    def __call__(self, question):
+        return self.pre_question(question)
+
+    @classmethod
+    def from_config(cls, cfg=None):
+        if cfg is None:
+            cfg = OmegaConf.create()
+
+        max_words = cfg.get("max_words", 50)
+
+        return cls(max_words=max_words)
+
+    def pre_question(self, question):
+        question = re.sub(
+            r"([.!\"()*#:;~])",
+            "",
+            question.lower(),
+        )
+        question = question.rstrip(" ")
+
+        # truncate question
+        question_words = question.split(" ")
+        if len(question_words) > self.max_words:
+            question = " ".join(question_words[: self.max_words])
+
+        return question

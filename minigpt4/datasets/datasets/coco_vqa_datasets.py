@@ -53,11 +53,13 @@ class COCOVQADataset(VQADataset, __DisplMixin):
         answers = list(answer_weight.keys())
         weights = list(answer_weight.values())
 
+        # get the most frequent answer
+        answer = answers[weights.index(max(weights))]
+
         return {
             "image": image,
             "text_input": question,
-            "answers": answers,
-            "weights": weights,
+            "answer": answer
         }
 
 

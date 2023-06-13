@@ -24,8 +24,10 @@ class BaseDataset(Dataset):
 
         self.annotation = []
         for ann_path in ann_paths:
-            self.annotation.extend(json.load(open(ann_path, "r"))['annotations'])
-
+            if "coco" in self.vis_root:
+                self.annotation.extend(json.load(open(ann_path, "r")))
+            else:
+                self.annotation.extend(json.load(open(ann_path, "r"))['annotations'])
         self.vis_processor = vis_processor
         self.text_processor = text_processor
 
