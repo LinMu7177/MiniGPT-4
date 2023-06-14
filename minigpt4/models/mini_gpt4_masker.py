@@ -45,6 +45,12 @@ class MiniGPT4Masker(Blip2Base):
         self.tokenizer = self.init_tokenizer()
         self.low_resource = low_resource
 
+        print('Init Image Masker')
+        self.img_masker = self.init_img_masker(
+            img_size, drop_path_rate, use_grad_checkpoint, vit_precision
+        )
+        print('Init Image Masker Done')
+
         print('Loading VIT')
         self.visual_encoder, self.ln_vision = self.init_vision_encoder(
             vit_model, img_size, drop_path_rate, use_grad_checkpoint, vit_precision
@@ -120,13 +126,15 @@ class MiniGPT4Masker(Blip2Base):
             self.prompt_list = []
 
     def vit_to_cpu(self):
+        self.img_masker.to("cpu")
+        self.img_masker.float()
         self.ln_vision.to("cpu")
         self.ln_vision.float()
         self.visual_encoder.to("cpu")
         self.visual_encoder.float()
 
     def encode_img(self, image):
-        device = self.device
+        device = image.device
         if self.low_resource:
             self.vit_to_cpu()
             image = image.to("cpu")
@@ -155,7 +163,7 @@ class MiniGPT4Masker(Blip2Base):
                     p_before, return_tensors="pt", add_special_tokens=False).to(img_embeds.device)
 
                 p_after_tokens = self.llama_tokenizer(
-                    p_after, return_tensors="pt", add_special_tokens=False, padding="max_length", max_length=25, truncation=True).to(img_embeds.device)
+                    p_after, return_tensors="pt", add_special_tokens=False, padding="max_length", max_length=28, truncation=True).to(img_embeds.device)
 
                 p_before_embed = self.llama_model.model.embed_tokens(p_before_tokens.input_ids)
                 p_after_embed = self.llama_model.model.embed_tokens(p_after_tokens.input_ids)
@@ -174,18 +182,26 @@ class MiniGPT4Masker(Blip2Base):
 
     def forward(self, samples):
         image = samples["image"]
-        img_embeds, atts_img = self.encode_img(image)
-        if 'question' in samples.keys():  # VQA dataset
-            vqa_prompt = []
-            for q in samples["question"]:
-                vqa_prompt.append('###Human: <Img><ImageHere></Img> ' + q + '###Assistant:')
-            img_embeds, atts_img = self.prompt_wrap(img_embeds, atts_img, vqa_prompt)
-        elif self.prompt_list:
-            prompts = []
-            prompt = random.choice(self.prompt_list)
-            for i in range (len(samples["answer"])):
-                prompts.append(prompt)
-            img_embeds, atts_img = self.prompt_wrap(img_embeds, atts_img, prompts)
+
+        question_tokens_for_masker = self.llama_tokenizer(
+            samples["question"],
+            return_tensors="pt",
+            padding="max_length",
+            truncation=True,
+            max_length=28,
+            add_special_tokens=False
+        ).to(image.device)
+
+        question_embeds_for_masker = self.llama_model.model.embed_tokens(question_tokens_for_masker.input_ids)
+        image_mask = self.img_masker.forward_features(question_embeds_for_masker, image)
+        masked_img = image_mask.unsqueeze(1) * image
+
+        img_embeds, atts_img = self.encode_img(masked_img)
+
+        vqa_prompt = []
+        for q in samples["question"]:
+            vqa_prompt.append('###Human: <Img><ImageHere></Img> ' + q + '###Assistant:')
+        img_embeds, atts_img = self.prompt_wrap(img_embeds, atts_img, vqa_prompt)
 
         self.llama_tokenizer.padding_side = "right"
 

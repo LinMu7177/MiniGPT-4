@@ -45,6 +45,12 @@ class MiniGPT4(Blip2Base):
         self.tokenizer = self.init_tokenizer()
         self.low_resource = low_resource
 
+        print('Init Image Masker')
+        self.img_masker = self.init_img_masker(
+            img_size, drop_path_rate, use_grad_checkpoint, vit_precision
+        )
+        print('Init Image Masker Done')
+
         print('Loading VIT')
         self.visual_encoder, self.ln_vision = self.init_vision_encoder(
             vit_model, img_size, drop_path_rate, use_grad_checkpoint, vit_precision
@@ -120,13 +126,15 @@ class MiniGPT4(Blip2Base):
             self.prompt_list = []
 
     def vit_to_cpu(self):
+        self.img_masker.to("cpu")
+        self.img_masker.float()
         self.ln_vision.to("cpu")
         self.ln_vision.float()
         self.visual_encoder.to("cpu")
         self.visual_encoder.float()
 
     def encode_img(self, image):
-        device = self.device
+        device = image.device
         if self.low_resource:
             self.vit_to_cpu()
             image = image.to("cpu")
