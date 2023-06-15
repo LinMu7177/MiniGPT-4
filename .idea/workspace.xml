@@ -4,13 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75d19946-4d5b-4083-adfd-084fb5277040" name="Changes" comment="">
+    <list default="true" id="89e278df-b0e2-4f97-9920-477775a4f4f9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/MiniGPT_4.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/MiniGPT-4.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/conversation/conversation.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/conversation/conversation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/models/blip2.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/blip2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/vqa_tools/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/vqa_tools/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/vqa_tools/vqa.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/vqa_tools/vqa.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/common/vqa_tools/vqa_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/vqa_tools/vqa_eval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_cap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_cap.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_ret.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_ret.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_vqa.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_vqa.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/eval_vqa.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/eval_vqa.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/org_defaults_vqa.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/org_defaults_vqa.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/builders/vqa_builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/builders/vqa_builder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/coco_vqa_datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/coco_vqa_datasets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/vqa_datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/vqa_datasets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minigpt4/models/eva_vit.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/eva_vit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/models/mini_gpt4.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/mini_gpt4.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minigpt4/tasks/vqa.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/tasks/vqa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train_configs/minigpt4_mask_stage_finetune.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/train_configs/minigpt4_mask_stage_finetune.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,70 +38,38 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2QXw0EWbniDHGpW21qzGH28KYZY" />
+  <component name="ProjectId" id="2RBeXhdzWlqvb7LPCfdJUfdBNH0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "true",
-    "last_opened_file_path": "/Users/xuwenwen/Desktop/workspace/MiniGPT-4/minigpt4/configs/models",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/xuwenwen/Library/CloudStorage/OneDrive-个人/workspace/MiniGPT_4",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PythonContentEntriesConfigurable",
-    "two.files.diff.last.used.file": "/Users/xuwenwen/Desktop/workspace/MiniGPT-4/minigpt4/configs/datasets/cc_sbu/defaults.yaml",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/minigpt4/configs/models" />
-      <recent name="$PROJECT_DIR$/minigpt4/models" />
-      <recent name="$PROJECT_DIR$/minigpt4/common" />
-      <recent name="$PROJECT_DIR$/minigpt4/tasks" />
-      <recent name="$PROJECT_DIR$/minigpt4/datasets/builders" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Python.mask_train">
-    <configuration name="demo" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="MiniGPT-4" />
+  <component name="RunManager">
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="MiniGPT_4" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="/home/tsingqguo/anaconda3/envs/sam_and_minigpt4/bin/python" />
-      <option name="SDK_NAME" value="Remote Python 3.9.16 (sftp://tsingqguo@155.69.151.233:32869/home/tsingqguo/anaconda3/envs/sam_and_minigpt4/bin/python)" />
+      <option name="SDK_NAME" value="Remote Python 3.9.16 (sftp://tsingqguo@155.69.151.233:32869/home/tsingqguo/anaconda3/envs/sam_and_minigpt4/bin/python) (2)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo.py" />
-      <option name="PARAMETERS" value="--cfg-path eval_configs/minigpt4_eval.yaml  --gpu-id 0" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="mask_train" type="PythonConfigurationType" factoryName="Python">
-      <module name="MiniGPT-4" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -100,47 +82,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="train" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="MiniGPT-4" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="/home/tsingqguo/anaconda3/envs/sam_and_minigpt4/bin/python" />
-      <option name="SDK_NAME" value="Remote Python 3.9.16 (sftp://tsingqguo@155.69.151.233:32869/home/tsingqguo/anaconda3/envs/sam_and_minigpt4/bin/python)" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
-      <option name="PARAMETERS" value="--cfg-path train_configs/minigpt4_stage2_finetune.yaml" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Python.train" />
-      <item itemvalue="Python.mask_train" />
-      <item itemvalue="Python.demo" />
-    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="75d19946-4d5b-4083-adfd-084fb5277040" name="Changes" comment="" />
-      <created>1685513008680</created>
+      <changelist id="89e278df-b0e2-4f97-9920-477775a4f4f9" name="Changes" comment="" />
+      <created>1686727945647</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1685513008680</updated>
-      <workItem from="1685513013192" duration="8671000" />
-      <workItem from="1685768679481" duration="19156000" />
-      <workItem from="1686112419685" duration="1053000" />
-      <workItem from="1686534961571" duration="51792000" />
+      <updated>1686727945647</updated>
+      <workItem from="1686727947938" duration="10570000" />
     </task>
     <servers />
   </component>
@@ -151,126 +102,44 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4.py</url>
-          <line>219</line>
-          <option name="timeStamp" value="9" />
+          <url>file://$PROJECT_DIR$/train.py</url>
+          <line>98</line>
+          <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/datasets/datasets/cc_sbu_dataset.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/datasets/builders/image_text_pair_builder.py</url>
-          <line>55</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/datasets/datasets/caption_datasets.py</url>
-          <line>35</line>
-          <option name="timeStamp" value="27" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/runners/runner_base.py</url>
-          <line>343</line>
-          <option name="timeStamp" value="30" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/runners/runner_base.py</url>
-          <line>202</line>
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4.py</url>
-          <line>174</line>
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4.py</url>
-          <line>225</line>
-          <option name="timeStamp" value="85" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/datasets/datasets/coco_vqa_datasets.py</url>
-          <line>95</line>
-          <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/datasets/datasets/coco_vqa_datasets.py</url>
-          <line>76</line>
-          <option name="timeStamp" value="92" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py</url>
-          <line>128</line>
-          <option name="timeStamp" value="123" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
-          <line>223</line>
-          <option name="timeStamp" value="126" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
-          <line>225</line>
-          <option name="timeStamp" value="127" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
-          <line>210</line>
-          <option name="timeStamp" value="128" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/conversation/conversation.py</url>
-          <line>201</line>
-          <option name="timeStamp" value="129" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
-          <line>477</line>
-          <option name="timeStamp" value="146" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py</url>
-          <line>183</line>
-          <option name="timeStamp" value="158" />
+          <url>file://$PROJECT_DIR$/minigpt4/tasks/base_task.py</url>
+          <line>232</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py</url>
           <line>248</line>
-          <option name="timeStamp" value="159" />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py</url>
-          <line>200</line>
-          <option name="timeStamp" value="160" />
+          <url>file://$PROJECT_DIR$/../../../../Caches/JetBrains/PyCharm2023.1/remote_sources/1982418411/1904167162/torch/optim/optimizer.py</url>
+          <line>271</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>477</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>462</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py</url>
           <line>198</line>
-          <option name="timeStamp" value="161" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/datasets/datasets/dataloader_utils.py</url>
-          <line>61</line>
-          <option name="timeStamp" value="162" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
-          <line>456</line>
-          <option name="timeStamp" value="163" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/tasks/base_task.py</url>
-          <line>233</line>
-          <option name="timeStamp" value="164" />
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MiniGPT_4$mask_train.coverage" NAME="mask_train Coverage Results" MODIFIED="1686725473208" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MiniGPT_4$demo.coverage" NAME="demo Coverage Results" MODIFIED="1686639479770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MiniGPT_4$train.coverage" NAME="train Coverage Results" MODIFIED="1686544694602" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MiniGPT_4$train.coverage" NAME="train Coverage Results" MODIFIED="1686793703030" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -48,7 +48,7 @@ class MiniGPT4Masker(Blip2Base):
         print('Init Image Masker')
         self.img_masker = self.init_img_masker(
             img_size, drop_path_rate, use_grad_checkpoint, vit_precision
-        )
+        ).float()
         print('Init Image Masker Done')
 
         print('Loading VIT')
@@ -192,7 +192,7 @@ class MiniGPT4Masker(Blip2Base):
             add_special_tokens=False
         ).to(image.device)
 
-        question_embeds_for_masker = self.llama_model.model.embed_tokens(question_tokens_for_masker.input_ids)
+        question_embeds_for_masker = self.llama_model.model.embed_tokens(question_tokens_for_masker.input_ids).float()
         image_mask = self.img_masker.forward_features(question_embeds_for_masker, image)
         masked_img = image_mask.unsqueeze(1) * image
 

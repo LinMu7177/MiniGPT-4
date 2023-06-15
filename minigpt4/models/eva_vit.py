@@ -456,10 +456,11 @@ class MaskerTransformer(VisionTransformer):
     def forward_features(self, text_embs, img_embs):
         cls_embs = self.text_dim_to_img_dim(text_embs)
 
-        self.patch_embed.float()
-        self.blocks.float()
-        self.x_dim_to_img_dim.float()
-        self.out_layer.float()
+        # self.patch_embed.float()
+        # self.blocks.float()
+        # self.x_dim_to_img_dim.float()
+        # self.out_layer.float()
+        # cls_embs = torch.ones([24, 28, 1408]).to(img_embs.device)
 
         img_embs = self.patch_embed(img_embs)
         batch_size, seq_len, _ = img_embs.size()

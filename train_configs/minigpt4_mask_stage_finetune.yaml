@@ -7,7 +7,7 @@ model:
   end_sym: "###"
   prompt_path: "prompts/alignment.txt"
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/mnt/local/wwx/Models/MiniGPT-4/pretrained_minigpt4_7b.pth'
+  ckpt: '/mnt/local/wwx/Models/MiniGPT-4/output/minigpt4_mask_stage_finetune_img_masker/20230614093/checkpoint_0.pth'
 
 
 datasets:
@@ -40,7 +40,7 @@ run:
   inference_method: "rank"
 
   seed: 42
-  output_dir: "/mnt/local/wwx/Models/MiniGPT-4/output/minigpt4_mask_stage_finetune_test"
+  output_dir: "/mnt/local/wwx/Models/MiniGPT-4/output/minigpt4_mask_stage_finetune_img_masker"
 
   amp: False
   resume_ckpt_path: null
