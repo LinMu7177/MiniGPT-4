@@ -453,7 +453,7 @@ class MaskerTransformer(VisionTransformer):
             self.pos_embed = None
         self.out_layer = nn.Sigmoid()
 
-    def forward_features(self, text_embs, img_embs):
+    def forward_features(self, text_embs, imgs):
         cls_embs = self.text_dim_to_img_dim(text_embs)
 
         # self.patch_embed.float()
@@ -462,7 +462,7 @@ class MaskerTransformer(VisionTransformer):
         # self.out_layer.float()
         # cls_embs = torch.ones([24, 28, 1408]).to(img_embs.device)
 
-        img_embs = self.patch_embed(img_embs)
+        img_embs = self.patch_embed(imgs)
         batch_size, seq_len, _ = img_embs.size()
         img_embs = torch.cat((cls_embs, img_embs), dim=1)
         if self.pos_embed is not None:

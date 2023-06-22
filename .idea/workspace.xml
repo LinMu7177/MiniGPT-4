@@ -5,26 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89e278df-b0e2-4f97-9920-477775a4f4f9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/MiniGPT_4.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/MiniGPT-4.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/common/vqa_tools/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/vqa_tools/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/common/vqa_tools/vqa.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/vqa_tools/vqa.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/common/vqa_tools/vqa_eval.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/common/vqa_tools/vqa_eval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_cap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_cap.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_ret.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_ret.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_vqa.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/defaults_vqa.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/eval_vqa.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/eval_vqa.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/org_defaults_vqa.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/configs/datasets/coco/org_defaults_vqa.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/builders/vqa_builder.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/builders/vqa_builder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/coco_vqa_datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/coco_vqa_datasets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/datasets/datasets/vqa_datasets.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/datasets/datasets/vqa_datasets.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minigpt4/models/eva_vit.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/eva_vit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minigpt4/tasks/vqa.py" beforeDir="false" afterPath="$PROJECT_DIR$/minigpt4/tasks/vqa.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train_configs/minigpt4_mask_stage_finetune.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/train_configs/minigpt4_mask_stage_finetune.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,21 +25,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/xuwenwen/Library/CloudStorage/OneDrive-个人/workspace/MiniGPT_4",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/xuwenwen/Library/CloudStorage/OneDrive-个人/workspace/MiniGPT_4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="train" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="MiniGPT_4" />
@@ -91,7 +74,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1686727945647</updated>
-      <workItem from="1686727947938" duration="10570000" />
+      <workItem from="1686727947938" duration="11604000" />
+      <workItem from="1687149900909" duration="6824000" />
+      <workItem from="1687412186252" duration="924000" />
     </task>
     <servers />
   </component>
@@ -122,24 +107,34 @@
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
-          <line>477</line>
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
-          <line>462</line>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py</url>
           <line>198</line>
           <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>456</line>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py</url>
+          <line>293</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/mini_gpt4_masker.py</url>
+          <line>296</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/minigpt4/models/eva_vit.py</url>
+          <line>478</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/MiniGPT_4$train.coverage" NAME="train Coverage Results" MODIFIED="1686793703030" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MiniGPT_4$train.coverage" NAME="train Coverage Results" MODIFIED="1687247676789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
