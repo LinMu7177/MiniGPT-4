@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="tsingqguo@155.69.151.233:32869" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="root@region-9.seetacloud.com:14675 password" remoteFilesAllowedToDisappearOnAutoupload="false" confirmBeforeUploading="false">
+    <option name="confirmBeforeUploading" value="false" />
     <serverData>
-      <paths name="tsingqguo@155.69.151.233:32869">
+      <paths name="root@region-9.seetacloud.com:14675 password">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/tsingqguo/wwx/projects/MiniGPT-4" local="$PROJECT_DIR$" />
+            <mapping deploy="/root/autodl-tmp/wwx/workspace/MiniGPT-4" local="$PROJECT_DIR$" />
           </mappings>
         </serverdata>
       </paths>

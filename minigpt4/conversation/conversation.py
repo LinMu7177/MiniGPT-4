@@ -8,7 +8,7 @@ from transformers import StoppingCriteria, StoppingCriteriaList
 
 import dataclasses
 from enum import auto, Enum
-from typing import List, Tuple, Any
+from typing import List, Tuple, Dict, Any
 
 from minigpt4.common.registry import registry
 
@@ -34,12 +34,18 @@ class Conversation:
     skip_next: bool = False
     conv_id: Any = None
 
+    focus_box: Dict = None
+    focus_encoder_box: Dict = None
+
     def get_prompt(self):
         if self.sep_style == SeparatorStyle.SINGLE:
             ret = self.system + self.sep
             for role, message in self.messages:
                 if message:
-                    ret += role + ": " + message + self.sep
+                    if '###Human' not in ret:
+                        ret += role + ": First of all, the image is as follows " + message + self.sep
+                    else:
+                        ret += role + ": " + message + self.sep
                 else:
                     ret += role + ":"
             return ret
@@ -108,7 +114,7 @@ class StoppingCriteriaSub(StoppingCriteria):
 
 CONV_VISION = Conversation(
     system="Give the following image: <Img>ImageContent</Img>. "
-           "You will be able to see the image once I provide it to you. Please answer my questions.",
+           "I will give you a question and a picture, in addition, I will use a focus model to retrieve from this image and segment the parts that are strongly related to the problem to provide to you as a focus image. You need to combine all the information to answer my question.",
     roles=("Human", "Assistant"),
     messages=[],
     offset=2,
@@ -136,6 +142,11 @@ class Chat:
 
     def answer(self, conv, img_list, max_new_tokens=300, num_beams=1, min_length=1, top_p=0.9,
                repetition_penalty=1.0, length_penalty=1, temperature=1.0, max_length=2000):
+
+        if conv.focus_encoder_box is not None:
+            conv.messages[-1][1] = conv.messages[-1][1].replace('<Img><ImageHere></Img>', '<Img><ImageHere></Img>, the specific questions are as follows:')
+            conv.messages[-1][1] = conv.messages[-1][1] + ' and finally the focus image is as follows <Img><ImageHere></Img> '
+
         conv.append_message(conv.roles[1], None)
         embs = self.get_context_emb(conv, img_list)
 

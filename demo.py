@@ -7,6 +7,7 @@ import torch
 import torch.backends.cudnn as cudnn
 import gradio as gr
 
+from PIL import Image
 from minigpt4.common.config import Config
 from minigpt4.common.dist_utils import get_rank
 from minigpt4.common.registry import registry
@@ -18,6 +19,11 @@ from minigpt4.models import *
 from minigpt4.processors import *
 from minigpt4.runners import *
 from minigpt4.tasks import *
+
+from detectron2.evaluation import inference_context
+import matplotlib.pyplot as plt
+
+from ReLA.Inference import *
 
 
 def parse_args():
@@ -34,6 +40,24 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+def Focuser(chat_state, gers_model, sample, img_list):
+
+    focus_box = {}
+    focus_encoder_box = {}
+    output = gers_model.infer(sample)
+
+    tmp_focus = output['images'] * output['mask']
+    tmp_focus = np.array(tmp_focus[0].permute(1, 2, 0).to("cpu"))
+
+    focus_box[sample['text']] = Image.fromarray(np.uint8(tmp_focus))
+    focus_vit = chat.vis_processor(focus_box[sample['text']]).unsqueeze(0).to(chat.device)
+
+    image_emb, _ = chat.model.encode_img(focus_vit)
+    focus_encoder_box[sample['text']] = image_emb
+
+    chat_state.focus_box = focus_box
+    chat_state.focus_encoder_box = focus_encoder_box
+    img_list.append(focus_encoder_box[sample['text']])
 
 def setup_seeds(config):
     seed = config.run_cfg.seed + get_rank()
@@ -53,6 +77,7 @@ def setup_seeds(config):
 print('Initializing Chat')
 args = parse_args()
 cfg = Config(args)
+gers_model = GRES_Inference()
 
 model_config = cfg.model_cfg
 model_config.device_8bit = args.gpu_id
@@ -63,6 +88,8 @@ vis_processor_cfg = cfg.datasets_cfg.cc_sbu_align.vis_processor.train
 vis_processor = registry.get_processor_class(vis_processor_cfg.name).from_config(vis_processor_cfg)
 chat = Chat(model, vis_processor, device='cuda:{}'.format(args.gpu_id))
 print('Initialization Finished')
+
+
 
 # ========================================
 #             Gradio Setting
@@ -91,7 +118,15 @@ def gradio_ask(user_message, chatbot, chat_state):
     return '', chatbot, chat_state
 
 
-def gradio_answer(chatbot, chat_state, img_list, num_beams, temperature):
+def gradio_answer(chatbot, chat_state, raw_image, img_list, num_beams, temperature):
+    sample = {}
+    sample['image'] = np.array(raw_image)
+    # sample['image'] = np.array(raw_image).transpose(2, 0, 1)
+    sample['text'] = chatbot[-1][0]
+    Focuser(chat_state, gers_model, sample, img_list)
+
+    # chatbot[-1][1] = "Successful focus!"
+
     llm_message = chat.answer(conv=chat_state,
                               img_list=img_list,
                               num_beams=num_beams,
@@ -115,7 +150,7 @@ with gr.Blocks() as demo:
 
     with gr.Row():
         with gr.Column(scale=0.5):
-            image = gr.Image(type="pil")
+            raw_image = gr.Image(type="pil")
             upload_button = gr.Button(value="Upload & Start Chat", interactive=True, variant="primary")
             clear = gr.Button("Restart")
             
@@ -143,11 +178,11 @@ with gr.Blocks() as demo:
             chatbot = gr.Chatbot(label='MiniGPT-4')
             text_input = gr.Textbox(label='User', placeholder='Please upload your image first', interactive=False)
     
-    upload_button.click(upload_img, [image, text_input, chat_state], [image, text_input, upload_button, chat_state, img_list])
+    upload_button.click(upload_img, [raw_image, text_input, chat_state], [raw_image, text_input, upload_button, chat_state, img_list])
     
     text_input.submit(gradio_ask, [text_input, chatbot, chat_state], [text_input, chatbot, chat_state]).then(
-        gradio_answer, [chatbot, chat_state, img_list, num_beams, temperature], [chatbot, chat_state, img_list]
+        gradio_answer, [chatbot, chat_state, raw_image, img_list, num_beams, temperature], [chatbot, chat_state, img_list]
     )
-    clear.click(gradio_reset, [chat_state, img_list], [chatbot, image, text_input, upload_button, chat_state, img_list], queue=False)
+    clear.click(gradio_reset, [chat_state, img_list], [chatbot, raw_image, text_input, upload_button, chat_state, img_list], queue=False)
 
 demo.launch(share=True, enable_queue=True)
