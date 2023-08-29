@@ -10,6 +10,8 @@ from minigpt4.models.blip2 import Blip2Base, disabled_train
 from minigpt4.models.modeling_llama import LlamaForCausalLM
 from transformers import LlamaTokenizer
 
+from ReLA.Inference import *
+
 
 @registry.register_model("mini_gpt4")
 class MiniGPT4(Blip2Base):
@@ -41,6 +43,8 @@ class MiniGPT4(Blip2Base):
         device_8bit=0,  # the device of 8bit model should be set when loading and cannot be changed anymore.
     ):
         super().__init__()
+
+        self.gres_model = GRES_Inference(),
 
         self.tokenizer = self.init_tokenizer()
         self.low_resource = low_resource
@@ -165,14 +169,19 @@ class MiniGPT4(Blip2Base):
 
     def forward(self, samples):
         image = samples["image"]
+        focus_image = samples["focus_image"]
         img_embeds, atts_img = self.encode_img(image)
+        focus_img_embeds, focus_atts_img = self.encode_img(focus_image)
+        focus_prompt = '###Human: <Img><ImageHere></Img> Describe this focus image in detail. ###Assistant: '
         if hasattr(samples, 'question_split'):  # VQA dataset
             print('VQA Batch')
             vqa_prompt = '###Human: <Img><ImageHere></Img> '
             img_embeds, atts_img = self.prompt_wrap(img_embeds, atts_img, vqa_prompt)
+            focus_img_embeds, focus_atts_img = self.prompt_wrap(img_embeds, atts_img, vqa_prompt)
         elif self.prompt_list:
             prompt = random.choice(self.prompt_list)
             img_embeds, atts_img = self.prompt_wrap(img_embeds, atts_img, prompt)
+            focus_img_embeds, focus_atts_img = self.prompt_wrap(focus_img_embeds, focus_atts_img, focus_prompt)
 
         self.llama_tokenizer.padding_side = "right"
 
@@ -192,7 +201,7 @@ class MiniGPT4(Blip2Base):
         )
 
         empty_targets = (
-            torch.ones([atts_img.shape[0], atts_img.shape[1]+1],
+            torch.ones([atts_img.shape[0], atts_img.shape[1]+focus_img_embeds.shape[1]+1],
                        dtype=torch.long).to(image.device).fill_(-100)  # plus one for bos
         )
         targets = torch.cat([empty_targets, targets], dim=1)
@@ -205,8 +214,8 @@ class MiniGPT4(Blip2Base):
         atts_bos = atts_img[:, :1]
 
         to_regress_embeds = self.llama_model.model.embed_tokens(to_regress_tokens.input_ids)
-        inputs_embeds = torch.cat([bos_embeds, img_embeds, to_regress_embeds], dim=1)
-        attention_mask = torch.cat([atts_bos, atts_img, to_regress_tokens.attention_mask], dim=1)
+        inputs_embeds = torch.cat([bos_embeds, img_embeds, focus_img_embeds, to_regress_embeds], dim=1)
+        attention_mask = torch.cat([atts_bos, atts_img, focus_atts_img, to_regress_tokens.attention_mask], dim=1)
 
         with self.maybe_autocast():
             outputs = self.llama_model(

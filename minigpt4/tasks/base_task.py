@@ -4,9 +4,10 @@
  SPDX-License-Identifier: BSD-3-Clause
  For full license text, see the LICENSE_Lavis file in the repo root or https://opensource.org/licenses/BSD-3-Clause
 """
-
-import logging
 import os
+import logging
+import numpy as np
+import torchvision.transforms as transforms
 
 import torch
 import torch.distributed as dist
@@ -203,6 +204,7 @@ class BaseTask:
                 break
 
             samples = next(data_loader)
+            samples['focus_image'] = self.gen_focus_imagse(model,samples)
 
             samples = prepare_sample(samples, cuda_enabled=cuda_enabled)
             samples.update(
@@ -245,6 +247,51 @@ class BaseTask:
             for k, meter in metric_logger.meters.items()
         }
 
+    def gen_focus_imagse(self,model,samples):
+        gres_data, focus_images = {}, torch.Tensor([]).to(samples['image'].device)
+        gres_data['image'] = samples['image'].permute(0,2,3,1).to("cpu")
+        gres_data['text_input'] = samples['text_input']
+        num_sample = len(gres_data['image'])
+
+        for i in range(num_sample):
+            tmp = {}
+            tmp['image'] = np.array(gres_data['image'][i])
+            tmp['text_input'] = gres_data['text_input'][i]
+            tmp_res = model.gres_model[0].infer(tmp)
+
+            focus_image = tmp_res['images'] * tmp_res['mask']
+
+            if focus_image.sum() == 0:
+                focus_image = samples['image'][i].unsqueeze(0)
+            else:
+                focus_image = self.cut_focus_image(focus_image)
+            focus_images = torch.cat((focus_images, focus_image), dim=0)
+        return focus_images
+
+    def cut_focus_image(self, focus_image):
+
+        focus_image = focus_image.squeeze(0)
+        row_sums = torch.sum(focus_image[0], dim=1)
+        col_sums = torch.sum(focus_image[0], dim=0)
+
+        non_zero_rows = torch.nonzero(row_sums)
+        non_zero_cols = torch.nonzero(col_sums)
+
+        min_row, max_row = torch.min(non_zero_rows).item(), torch.max(non_zero_rows).item() + 1
+        min_col, max_col = torch.min(non_zero_cols).item(), torch.max(non_zero_cols).item() + 1
+
+        # cuted_focus_image = focus_image[:, min_row:max_row + 1, min_col:max_col + 1].permute(1, 2, 0).cpu().numpy()
+        raw_cuted_focus_image = focus_image[:, min_row:max_row + 1, min_col:max_col + 1]
+
+        # resize
+        resize = transforms.Resize((224, 224))
+
+        resized_image = resize(raw_cuted_focus_image)
+        # tmp_cuted_focus_image = Image.fromarray(raw_cuted_focus_image.to('cpu').numpy().astype(np.uint8).transpose(1,2,0))
+        # resize_cuted_focus_image = F.resize(tmp_cuted_focus_image, (224, 224))
+        # cuted_focus_image = torch.from_numpy(np.array(resize_cuted_focus_image)).to('cuda')
+        return resized_image.unsqueeze(0)
+
     @staticmethod
     def save_result(result, result_dir, filename, remove_duplicate=""):
         import json
@@ -284,3 +331,5 @@ class BaseTask:
             print("result file saved to %s" % final_result_file)
 
         return final_result_file
+
+

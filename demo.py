@@ -40,24 +40,24 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-def Focuser(chat_state, gers_model, sample, img_list):
+def Focuser(chat_state, gres_model, sample, img_list):
 
     focus_box = {}
     focus_encoder_box = {}
-    output = gers_model.infer(sample)
+    output = gres_model.infer(sample)
 
     tmp_focus = output['images'] * output['mask']
     tmp_focus = np.array(tmp_focus[0].permute(1, 2, 0).to("cpu"))
 
-    focus_box[sample['text']] = Image.fromarray(np.uint8(tmp_focus))
-    focus_vit = chat.vis_processor(focus_box[sample['text']]).unsqueeze(0).to(chat.device)
+    focus_box[sample['text_input']] = Image.fromarray(np.uint8(tmp_focus))
+    focus_vit = chat.vis_processor(focus_box[sample['text_input']]).unsqueeze(0).to(chat.device)
 
     image_emb, _ = chat.model.encode_img(focus_vit)
-    focus_encoder_box[sample['text']] = image_emb
+    focus_encoder_box[sample['text_input']] = image_emb
 
     chat_state.focus_box = focus_box
     chat_state.focus_encoder_box = focus_encoder_box
-    img_list.append(focus_encoder_box[sample['text']])
+    img_list.append(focus_encoder_box[sample['text_input']])
 
 def setup_seeds(config):
     seed = config.run_cfg.seed + get_rank()
@@ -77,7 +77,7 @@ def setup_seeds(config):
 print('Initializing Chat')
 args = parse_args()
 cfg = Config(args)
-gers_model = GRES_Inference()
+gres_model = GRES_Inference()
 
 model_config = cfg.model_cfg
 model_config.device_8bit = args.gpu_id
@@ -122,8 +122,8 @@ def gradio_answer(chatbot, chat_state, raw_image, img_list, num_beams, temperatu
     sample = {}
     sample['image'] = np.array(raw_image)
     # sample['image'] = np.array(raw_image).transpose(2, 0, 1)
-    sample['text'] = chatbot[-1][0]
-    Focuser(chat_state, gers_model, sample, img_list)
+    sample['text_input'] = chatbot[-1][0]
+    Focuser(chat_state, gres_model, sample, img_list)
 
     # chatbot[-1][1] = "Successful focus!"
 

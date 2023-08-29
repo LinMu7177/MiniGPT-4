@@ -7,7 +7,7 @@ model:
   end_sym: "###"
   prompt_path: "prompts/alignment.txt"
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/root/autodl-tmp/wwx/Models/MiniGPT-4/pretrained_minigpt4_7b_stage1.pth'
+  ckpt: '/mnt/local/wwx/Models/MiniGPT-4/pretrained_minigpt4_7b_stage1.pth'
 
 
 
@@ -35,11 +35,11 @@ run:
   iters_per_epoch: 200
   batch_size_train: 2
   batch_size_eval: 2
-  num_workers: 1
+  num_workers: 0
   warmup_steps: 200
 
   seed: 42
-  output_dir: "/root/autodl-tmp/wwx/Output/MiniGPT-4/output/0818"
+  output_dir: "/mnt/local/wwx/wwx/Output/MiniGPT-4/output/0818"
 
   amp: True
   resume_ckpt_path: null

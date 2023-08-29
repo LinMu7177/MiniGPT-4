@@ -13,7 +13,7 @@ model:
   num_query_token: 32
 
   # Vicuna
-  llama_model: "/root/autodl-tmp/ckpts/vicuna-7b-v1.1/"
+  llama_model: "/mnt/local/wwx/Models/MiniGPT-4/vicuna-7b-delta-v1.1/"
 
   # generation configs
   prompt: ""
