@@ -68,8 +68,8 @@ model_ts*.txt
 *~
 
 # editor settings
-.idea
-.vscode
+.idea/
+.vscode/
 _darcs
 
 # project dirs
