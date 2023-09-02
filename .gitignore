@@ -69,6 +69,7 @@ model_ts*.txt
 
 # editor settings
 .idea/
+__pycache__/
 .vscode/
 _darcs
 
