@@ -23,7 +23,7 @@ from minigpt4.tasks import *
 from detectron2.evaluation import inference_context
 import matplotlib.pyplot as plt
 
-from ReLA.Inference import *
+from ReLA2.Inference import *
 
 
 def parse_args():
