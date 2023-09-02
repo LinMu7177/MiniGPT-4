@@ -10,7 +10,7 @@ from minigpt4.models.blip2 import Blip2Base, disabled_train
 from minigpt4.models.modeling_llama import LlamaForCausalLM
 from transformers import LlamaTokenizer
 
-from ReLA.Inference import *
+from ReLA2.Inference import *
 
 
 @registry.register_model("mini_gpt4")
