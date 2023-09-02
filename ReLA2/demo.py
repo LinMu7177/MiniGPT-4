@@ -7,7 +7,7 @@ import pickle
 import matplotlib.pyplot as plt
 
 from detectron2.evaluation import inference_context
-from ReLA.model_instance import get_model, raw_data2feature
+from ReLA2.model_instance import get_model, raw_data2feature
 from detectron2.engine import default_argument_parser
 
 # TODO: image needs to be source image
@@ -38,7 +38,7 @@ for argument in artificial_args.split('\n'):
     sys.argv.append(argument)
 
 args, unknown = default_argument_parser().parse_known_args()
-sGRES_model, cfg = get_model(args)
+GRES_model, cfg = get_model(args)
 
 
 input_dic = get_src_input()

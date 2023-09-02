@@ -3,7 +3,7 @@
 import sys
 from detectron2.evaluation import inference_context
 from detectron2.engine import default_argument_parser
-from ReLA.model_instance import get_model, raw_data2feature
+from ReLA2.model_instance import get_model, raw_data2feature
 
 # TODO: image needs to be source image
 class GRES_Inference:

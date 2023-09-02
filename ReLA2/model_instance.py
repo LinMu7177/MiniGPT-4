@@ -14,7 +14,7 @@ from detectron2.data import transforms as T
 
 from transformers import BertTokenizer
 
-from ReLA.gres_model.data.dataset_mappers.refcoco_mapper import build_transform_test
+from ReLA2.gres_model.data.dataset_mappers.refcoco_mapper import build_transform_test
 
 try:
     # ignore ShapelyDeprecationWarning from fvcore
@@ -48,7 +48,7 @@ from detectron2.projects.deeplab import add_deeplab_config
 from detectron2.utils.logger import setup_logger
 
 # MaskFormer
-from ReLA.gres_model import (
+from ReLA2.gres_model import (
     add_maskformer2_config,
     add_refcoco_config
 )
