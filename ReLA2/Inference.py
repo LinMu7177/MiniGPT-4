@@ -21,12 +21,12 @@ class GRES_Inference:
         /root/autodl-tmp/output/alan/GRES"""
 
         sys.argv = []
-        sys.argv.append('/root/autodl-tmp/wwx/workspace/MiniGPT-4/ReLA/demo.py')
+        sys.argv.append('/root/autodl-tmp/codes/MiniGPT-4/ReLA2/demo.py')
         for argument in artificial_args.split('\n'):
             sys.argv.append(argument.lstrip())
 
         args, unknown = default_argument_parser().parse_known_args()
-        args.config_file = 'ReLA/' + args.config_file
+        args.config_file = 'ReLA2/' + args.config_file
 
         self.GRES_model, self.cfg = get_model(args)
         inference_context(self.GRES_model)

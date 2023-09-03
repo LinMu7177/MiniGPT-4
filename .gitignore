@@ -83,3 +83,6 @@ _darcs
 /output_*
 
 **/ops/lib*.so.*
+
+draft*.py
+demo*.ipynb

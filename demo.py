@@ -23,7 +23,7 @@ from minigpt4.tasks import *
 from detectron2.evaluation import inference_context
 import matplotlib.pyplot as plt
 
-from ReLA2.Inference import *
+from ReLA2.Inference import GRES_Inference
 
 
 def parse_args():
@@ -153,7 +153,7 @@ with gr.Blocks() as demo:
             raw_image = gr.Image(type="pil")
             upload_button = gr.Button(value="Upload & Start Chat", interactive=True, variant="primary")
             clear = gr.Button("Restart")
-            
+
             num_beams = gr.Slider(
                 minimum=1,
                 maximum=10,
@@ -162,7 +162,7 @@ with gr.Blocks() as demo:
                 interactive=True,
                 label="beam search numbers)",
             )
-            
+
             temperature = gr.Slider(
                 minimum=0.1,
                 maximum=2.0,
@@ -177,9 +177,9 @@ with gr.Blocks() as demo:
             img_list = gr.State()
             chatbot = gr.Chatbot(label='MiniGPT-4')
             text_input = gr.Textbox(label='User', placeholder='Please upload your image first', interactive=False)
-    
+
     upload_button.click(upload_img, [raw_image, text_input, chat_state], [raw_image, text_input, upload_button, chat_state, img_list])
-    
+
     text_input.submit(gradio_ask, [text_input, chatbot, chat_state], [text_input, chatbot, chat_state]).then(
         gradio_answer, [chatbot, chat_state, raw_image, img_list, num_beams, temperature], [chatbot, chat_state, img_list]
     )
