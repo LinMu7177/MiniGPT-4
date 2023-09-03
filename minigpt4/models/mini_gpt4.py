@@ -10,8 +10,6 @@ from minigpt4.models.blip2 import Blip2Base, disabled_train
 from minigpt4.models.modeling_llama import LlamaForCausalLM
 from transformers import LlamaTokenizer
 
-from ReLA2.Inference import *
-
 
 @registry.register_model("mini_gpt4")
 class MiniGPT4(Blip2Base):
@@ -24,27 +22,27 @@ class MiniGPT4(Blip2Base):
     }
 
     def __init__(
-        self,
-        vit_model="eva_clip_g",
-        q_former_model="https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_pretrained_flant5xxl.pth",
-        img_size=224,
-        drop_path_rate=0,
-        use_grad_checkpoint=False,
-        vit_precision="fp16",
-        freeze_vit=True,
-        freeze_qformer=True,
-        num_query_token=32,
-        llama_model="",
-        prompt_path="",
-        prompt_template="",
-        max_txt_len=32,
-        end_sym='\n',
-        low_resource=False,  # use 8 bit and put vit in cpu
-        device_8bit=0,  # the device of 8bit model should be set when loading and cannot be changed anymore.
+            self,
+            vit_model="eva_clip_g",
+            q_former_model="https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_pretrained_flant5xxl.pth",
+            img_size=224,
+            drop_path_rate=0,
+            use_grad_checkpoint=False,
+            vit_precision="fp16",
+            freeze_vit=True,
+            freeze_qformer=True,
+            num_query_token=32,
+            llama_model="",
+            prompt_path="",
+            prompt_template="",
+            max_txt_len=32,
+            end_sym='\n',
+            low_resource=False,  # use 8 bit and put vit in cpu
+            device_8bit=0,  # the device of 8bit model should be set when loading and cannot be changed anymore.
     ):
         super().__init__()
 
-        self.gres_model = GRES_Inference(),
+        # self.gres_model = GRES_Inference(),
 
         self.tokenizer = self.init_tokenizer()
         self.low_resource = low_resource
@@ -201,7 +199,7 @@ class MiniGPT4(Blip2Base):
         )
 
         empty_targets = (
-            torch.ones([atts_img.shape[0], atts_img.shape[1]+focus_img_embeds.shape[1]+1],
+            torch.ones([atts_img.shape[0], atts_img.shape[1] + focus_img_embeds.shape[1] + 1],
                        dtype=torch.long).to(image.device).fill_(-100)  # plus one for bos
         )
         targets = torch.cat([empty_targets, targets], dim=1)
@@ -231,7 +229,8 @@ class MiniGPT4(Blip2Base):
     @classmethod
     def from_config(cls, cfg):
         vit_model = cfg.get("vit_model", "eva_clip_g")
-        q_former_model = cfg.get("q_former_model", "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_pretrained_flant5xxl.pth")
+        q_former_model = cfg.get("q_former_model",
+                                 "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_pretrained_flant5xxl.pth")
         img_size = cfg.get("image_size")
         num_query_token = cfg.get("num_query_token")
         llama_model = cfg.get("llama_model")
