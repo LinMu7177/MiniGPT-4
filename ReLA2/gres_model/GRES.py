@@ -119,15 +119,13 @@ class GRES(nn.Module):
         return self.pixel_mean.device
 
     def forward(self, batched_inputs):
-        images = [x["image"].to(self.device) for x in batched_inputs]
-        images = [(x - self.pixel_mean) / self.pixel_std for x in images]
+        images = (batched_inputs['focus_image'] - self.pixel_mean) / self.pixel_std
+        B = images.size(0)
+        images = [images[i, :, :, :] for i in range(B)]
         images = ImageList.from_tensors(images, self.size_divisibility)
 
-        lang_emb = [x['lang_tokens'].to(self.device) for x in batched_inputs]
-        lang_emb = torch.cat(lang_emb, dim=0)
-
-        lang_mask = [x['lang_mask'].to(self.device) for x in batched_inputs]
-        lang_mask = torch.cat(lang_mask, dim=0)
+        lang_emb = batched_inputs['focus_lang_tokens'].squeeze(1)
+        lang_mask = batched_inputs['focus_lang_mask'].squeeze(1)
 
         lang_feat = self.text_encoder(lang_emb, attention_mask=lang_mask)[0]  # B, Nl, 768
 
@@ -137,7 +135,11 @@ class GRES(nn.Module):
         features = self.backbone(images.tensor, lang_feat, lang_mask)
         outputs = self.sem_seg_head(features, lang_feat, lang_mask)
 
-        # self.training = False
+        h, w = images.tensor.shape[-2:]
+
+        # TODO this need to be fixed when in E2E training
+        self.training = False
+        self.eval()
         # print('is training: ', self.training)
         if self.training:
             targets = self.prepare_targets(batched_inputs, images)
@@ -151,17 +153,12 @@ class GRES(nn.Module):
                     losses.pop(k)
             return losses
         else:
-            # concatenate outputs['images'].tensor
-            res_images = torch.Tensor([]).to(self.device)
-            for image in images:
-                res_images = torch.cat((res_images, image.unsqueeze(0)), dim=0)
-
             src_masks = outputs['pred_masks']
-            h, w = res_images.shape[-2:]
             src_masks = F.interpolate(src_masks, (h, w), mode='bilinear', align_corners=False)
             above_threshold = src_masks[:, 1, :, :] >= 0
+            self.training = True
             return {
-                'images': res_images,
+                'contain_target': outputs['nt_label'].softmax(dim=-1)[:, 0] > 0.5,
                 'mask': above_threshold.int().unsqueeze(dim=1)
             }
 

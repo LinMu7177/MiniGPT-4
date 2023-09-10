@@ -1,10 +1,12 @@
 import logging
 import random
+from typing import List
 
 import torch
 from torch.cuda.amp import autocast as autocast
 import torch.nn as nn
 
+from ReLA2.Inference import GRESModelContainer
 from minigpt4.common.registry import registry
 from minigpt4.models.blip2 import Blip2Base, disabled_train
 from minigpt4.models.modeling_llama import LlamaForCausalLM
@@ -42,7 +44,7 @@ class MiniGPT4(Blip2Base):
     ):
         super().__init__()
 
-        # self.gres_model = GRES_Inference(),
+        self.focus_model_container = GRESModelContainer()
 
         self.tokenizer = self.init_tokenizer()
         self.low_resource = low_resource
@@ -149,41 +151,88 @@ class MiniGPT4(Blip2Base):
             atts_llama = torch.ones(inputs_llama.size()[:-1], dtype=torch.long).to(image.device)
         return inputs_llama, atts_llama
 
-    def prompt_wrap(self, img_embeds, atts_img, prompt):
-        if prompt:
-            batch_size = img_embeds.shape[0]
-            p_before, p_after = prompt.split('<ImageHere>')
-            p_before_tokens = self.llama_tokenizer(
-                p_before, return_tensors="pt", add_special_tokens=False).to(img_embeds.device)
-            p_after_tokens = self.llama_tokenizer(
-                p_after, return_tensors="pt", add_special_tokens=False).to(img_embeds.device)
-            p_before_embeds = self.llama_model.model.embed_tokens(p_before_tokens.input_ids).expand(batch_size, -1, -1)
-            p_after_embeds = self.llama_model.model.embed_tokens(p_after_tokens.input_ids).expand(batch_size, -1, -1)
-            wrapped_img_embeds = torch.cat([p_before_embeds, img_embeds, p_after_embeds], dim=1)
-            wrapped_atts_img = atts_img[:, :1].expand(-1, wrapped_img_embeds.shape[1])
-            return wrapped_img_embeds, wrapped_atts_img
+    def embed_tokens(self, token_ids):
+        if hasattr(self.llama_model.base_model, 'model'):  ## lora wrapped model
+            embeds = self.llama_model.base_model.model.model.embed_tokens(token_ids)
         else:
-            return img_embeds, atts_img
+            embeds = self.llama_model.base_model.embed_tokens(token_ids)
+        return embeds
+
+    def prompt_wrap(self, full_img_embeds, focus_image_embeds, queries: List[str]):
+        def text2embedding(text: str):
+            tokens = self.llama_tokenizer(
+                text, return_tensors="pt", add_special_tokens=False).to(full_img_embeds.device)
+            return self.embed_tokens(tokens.input_ids)
+
+        """
+        Demo:
+        ###Human: The Full Image is <Img><FullImageHere></Img> Query: What is picture saying? Please Answer the query combine with this focus image <Img><FocusImageHere></Img> ###Assistant:
+        """
+        full_image_prefix = '###Human: The Full Image is <Img>'
+        full_image_suffix = '</Img> Query: '
+        focus_image_prefix = 'Please Answer the query combine with this focus image <Img>'
+        focus_image_suffix = '</Img> ###Assistant: '
+
+        emb_lists = []
+        for each_full_img_embed, each_focus_img_embed, query in zip(full_img_embeds, focus_image_embeds, queries):
+            embed_full_image_prefix = text2embedding(full_image_prefix)
+            embed_full_image_suffix = text2embedding(full_image_suffix + query)
+            embed_focus_image_prefix = text2embedding(focus_image_prefix)
+            embed_focus_image_suffix = text2embedding(focus_image_suffix)
+            wrapped_emb = torch.cat([
+                embed_full_image_prefix,
+                each_full_img_embed[None],
+                embed_full_image_suffix,
+                embed_focus_image_prefix,
+                each_focus_img_embed[None],
+                embed_focus_image_suffix
+            ], dim=1)
+            emb_lists.append(wrapped_emb)
+        emb_lens = [emb.shape[1] for emb in emb_lists]
+        pad_emb = self.embed_tokens(torch.tensor(self.llama_tokenizer.pad_token_id, device=full_img_embeds.device))
+        wrapped_embs = pad_emb.expand(len(emb_lens), max(emb_lens), -1).clone()
+        wrapped_atts = torch.zeros([len(emb_lens), max(emb_lens)], dtype=torch.int, device=full_img_embeds.device)
+        for i, emb in enumerate(emb_lists):
+            wrapped_embs[i, :emb_lens[i]] = emb
+            wrapped_atts[i, :emb_lens[i]] = 1
+        return wrapped_embs, wrapped_atts
+
+    def concat_emb_input_output(self, input_embs, input_atts, output_embs, output_atts):
+        input_lens = []
+        cat_embs = []
+        cat_atts = []
+        for i in range(input_embs.size(0)):
+            input_len = input_atts[i].sum()
+            input_lens.append(input_len)
+            cat_embs.append(
+                torch.cat([
+                    input_embs[i][:input_len],
+                    output_embs[i],
+                    input_embs[i][input_len:]
+                ])
+            )
+            cat_atts.append(
+                torch.cat([
+                    input_atts[i][:input_len],
+                    output_atts[i],
+                    input_atts[i][input_len:]
+                ])
+            )
+        cat_embs = torch.stack(cat_embs)
+        cat_atts = torch.stack(cat_atts)
+        return cat_embs, cat_atts, input_lens
 
     def forward(self, samples):
         image = samples["image"]
+        full_img_embeds, full_atts_img = self.encode_img(image)
         focus_image = samples["focus_image"]
-        img_embeds, atts_img = self.encode_img(image)
         focus_img_embeds, focus_atts_img = self.encode_img(focus_image)
-        focus_prompt = '###Human: <Img><ImageHere></Img> Describe this focus image in detail. ###Assistant: '
-        if hasattr(samples, 'question_split'):  # VQA dataset
-            print('VQA Batch')
-            vqa_prompt = '###Human: <Img><ImageHere></Img> '
-            img_embeds, atts_img = self.prompt_wrap(img_embeds, atts_img, vqa_prompt)
-            focus_img_embeds, focus_atts_img = self.prompt_wrap(img_embeds, atts_img, vqa_prompt)
-        elif self.prompt_list:
-            prompt = random.choice(self.prompt_list)
-            img_embeds, atts_img = self.prompt_wrap(img_embeds, atts_img, prompt)
-            focus_img_embeds, focus_atts_img = self.prompt_wrap(focus_img_embeds, focus_atts_img, focus_prompt)
+
+        img_embeds, atts_img = self.prompt_wrap(full_img_embeds, focus_img_embeds, samples['query'])
 
         self.llama_tokenizer.padding_side = "right"
 
-        text = [t + self.end_sym for t in samples["text_input"]]
+        text = [t + self.end_sym for t in samples['answer']]
 
         to_regress_tokens = self.llama_tokenizer(
             text,
@@ -193,27 +242,29 @@ class MiniGPT4(Blip2Base):
             max_length=self.max_txt_len,
             add_special_tokens=False
         ).to(image.device)
-
-        targets = to_regress_tokens.input_ids.masked_fill(
-            to_regress_tokens.input_ids == self.llama_tokenizer.pad_token_id, -100
-        )
-
-        empty_targets = (
-            torch.ones([atts_img.shape[0], atts_img.shape[1] + focus_img_embeds.shape[1] + 1],
-                       dtype=torch.long).to(image.device).fill_(-100)  # plus one for bos
-        )
-        targets = torch.cat([empty_targets, targets], dim=1)
-
         batch_size = img_embeds.shape[0]
         bos = torch.ones([batch_size, 1],
                          dtype=to_regress_tokens.input_ids.dtype,
                          device=to_regress_tokens.input_ids.device) * self.llama_tokenizer.bos_token_id
-        bos_embeds = self.llama_model.model.embed_tokens(bos)
+        bos_embeds = self.embed_tokens(bos)
         atts_bos = atts_img[:, :1]
 
-        to_regress_embeds = self.llama_model.model.embed_tokens(to_regress_tokens.input_ids)
-        inputs_embeds = torch.cat([bos_embeds, img_embeds, focus_img_embeds, to_regress_embeds], dim=1)
-        attention_mask = torch.cat([atts_bos, atts_img, focus_atts_img, to_regress_tokens.attention_mask], dim=1)
+        to_regress_embeds = self.embed_tokens(to_regress_tokens.input_ids)
+        inputs_embeds, attention_mask, input_lens = \
+            self.concat_emb_input_output(img_embeds, atts_img, to_regress_embeds, to_regress_tokens.attention_mask)
+        inputs_embeds = torch.cat([bos_embeds, inputs_embeds], dim=1)
+        attention_mask = torch.cat([atts_bos, attention_mask], dim=1)
+
+        part_targets = to_regress_tokens.input_ids.masked_fill(
+            to_regress_tokens.input_ids == self.llama_tokenizer.pad_token_id, -100
+        )
+        targets = (
+            torch.ones([inputs_embeds.shape[0], inputs_embeds.shape[1]],
+                       dtype=torch.long).to(image.device).fill_(-100)
+        )
+
+        for i, target in enumerate(part_targets):
+            targets[i, input_lens[i] + 1:input_lens[i] + len(target) + 1] = target  # plus 1 for bos
 
         with self.maybe_autocast():
             outputs = self.llama_model(
