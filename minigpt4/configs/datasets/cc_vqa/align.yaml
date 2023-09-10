@@ -1,0 +1,5 @@
+datasets:
+  cc_vqa_align:
+    data_type: images
+    build_info:
+      storage: /root/autodl-tmp/wwx/LLM_Data/cc_sbu_align/

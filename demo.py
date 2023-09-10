@@ -23,7 +23,7 @@ from minigpt4.tasks import *
 from detectron2.evaluation import inference_context
 import matplotlib.pyplot as plt
 
-from ReLA2.Inference import GRES_Inference
+from ReLA2.Inference import GRESModelContainer
 
 
 def parse_args():
@@ -77,7 +77,7 @@ def setup_seeds(config):
 print('Initializing Chat')
 args = parse_args()
 cfg = Config(args)
-gres_model = GRES_Inference()
+gres_model = GRESModelContainer()
 
 model_config = cfg.model_cfg
 model_config.device_8bit = args.gpu_id

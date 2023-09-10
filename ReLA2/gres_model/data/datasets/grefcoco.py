@@ -16,14 +16,13 @@ from detectron2.utils.file_io import PathManager
 This file contains functions to parse RefCOCO-format annotations into dicts in "Detectron2 format".
 """
 
-
 logger = logging.getLogger(__name__)
 
 __all__ = ["load_refcoco_json"]
 
 
-def load_grefcoco_json(refer_root, dataset_name, splitby, split, image_root, extra_annotation_keys=None, extra_refer_keys=None):
-
+def load_grefcoco_json(refer_root, dataset_name, splitby, split, image_root, extra_annotation_keys=None,
+                       extra_refer_keys=None):
     if dataset_name == 'refcocop':
         dataset_name = 'refcoco+'
     if dataset_name == 'refcoco' or dataset_name == 'refcoco+':
@@ -40,8 +39,8 @@ def load_grefcoco_json(refer_root, dataset_name, splitby, split, image_root, ext
     refer_root = PathManager.get_local_path(refer_root)
     with contextlib.redirect_stdout(io.StringIO()):
         refer_api = G_REFER(data_root=refer_root,
-                        dataset=dataset_name,
-                        splitBy=splitby)
+                            dataset=dataset_name,
+                            splitBy=splitby)
     if timer.seconds() > 1:
         logger.info("Loading {} takes {:.2f} seconds.".format(dataset_id, timer.seconds()))
 
@@ -52,7 +51,9 @@ def load_grefcoco_json(refer_root, dataset_name, splitby, split, image_root, ext
     anns = [refer_api.loadAnns(ref['ann_id']) for ref in refs]
     imgs_refs_anns = list(zip(imgs, refs, anns))
 
-    logger.info("Loaded {} images, {} referring object sets in G_RefCOCO format from {}".format(len(img_ids), len(ref_ids), dataset_id))
+    logger.info(
+        "Loaded {} images, {} referring object sets in G_RefCOCO format from {}".format(len(img_ids), len(ref_ids),
+                                                                                        dataset_id))
 
     dataset_dicts = []
 
@@ -65,11 +66,14 @@ def load_grefcoco_json(refer_root, dataset_name, splitby, split, image_root, ext
     MT_count = 0
 
     for (img_dict, ref_dict, anno_dicts) in imgs_refs_anns:
-        record = {}
-        record["source"] = 'grefcoco'
-        record["file_name"] = os.path.join(image_root, img_dict["file_name"])
-        record["height"] = img_dict["height"]
-        record["width"] = img_dict["width"]
+        record = {
+            'most_common_answer': ref_dict['most_common_answer'],
+            'answers': ref_dict['answers'],
+            "source": 'grefcoco',
+            "file_name": os.path.join(image_root, img_dict["file_name"]),
+            "height": img_dict["height"],
+            "width": img_dict["width"]
+        }
         image_id = record["image_id"] = img_dict["id"]
 
         # Check that information of image, ann and ref match each other
@@ -106,7 +110,7 @@ def load_grefcoco_json(refer_root, dataset_name, splitby, split, image_root, ext
                     ann = {key: anno_dict[key] for key in ann_keys if key in anno_dict}
                     ann["bbox_mode"] = BoxMode.XYWH_ABS
                     ann["empty"] = False
- 
+
                     segm = anno_dict.get("segmentation", None)
                     assert segm  # either list[list[float]] or dict(RLE)
                     if isinstance(segm, dict):
@@ -146,6 +150,7 @@ def load_grefcoco_json(refer_root, dataset_name, splitby, split, image_root, ext
 
     return dataset_dicts
 
+
 if __name__ == "__main__":
     """
     Test the COCO json dataset loader.
@@ -170,5 +175,6 @@ if __name__ == "__main__":
 
     logger = setup_logger(name=__name__)
 
-    dicts = load_grefcoco_json(REFCOCO_PATH, REFCOCO_DATASET, REFCOCO_SPLITBY, REFCOCO_SPLIT, COCO_TRAIN_2014_IMAGE_ROOT)
+    dicts = load_grefcoco_json(REFCOCO_PATH, REFCOCO_DATASET, REFCOCO_SPLITBY, REFCOCO_SPLIT,
+                               COCO_TRAIN_2014_IMAGE_ROOT)
     logger.info("Done loading {} samples.".format(len(dicts)))

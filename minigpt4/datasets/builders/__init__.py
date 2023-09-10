@@ -9,14 +9,16 @@ from minigpt4.datasets.builders.base_dataset_builder import load_dataset_config
 from minigpt4.datasets.builders.image_text_pair_builder import (
     CCSBUBuilder,
     LaionBuilder,
-    CCSBUAlignBuilder
+    CCSBUAlignBuilder,
+    CCVQABuilder
 )
 from minigpt4.common.registry import registry
 
 __all__ = [
     "CCSBUBuilder",
     "LaionBuilder",
-    "CCSBUAlignBuilder"
+    "CCSBUAlignBuilder",
+    "CCVQABuilder",
 ]
 
 
@@ -49,7 +51,7 @@ def load_dataset(name, cfg_path=None, vis_path=None, data_type=None):
             data_type = builder.config.data_type
 
         assert (
-            data_type in builder.config.build_info
+                data_type in builder.config.build_info
         ), f"Invalid data_type {data_type} for {name}."
 
         builder.config.build_info.get(data_type).storage = vis_path

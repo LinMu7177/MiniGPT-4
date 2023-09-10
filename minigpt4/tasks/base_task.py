@@ -101,16 +101,16 @@ class BaseTask:
         return results
 
     def train_epoch(
-        self,
-        epoch,
-        model,
-        data_loader,
-        optimizer,
-        lr_scheduler,
-        scaler=None,
-        cuda_enabled=False,
-        log_freq=50,
-        accum_grad_iters=1,
+            self,
+            epoch,
+            model,
+            data_loader,
+            optimizer,
+            lr_scheduler,
+            scaler=None,
+            cuda_enabled=False,
+            log_freq=50,
+            accum_grad_iters=1,
     ):
         return self._train_inner_loop(
             epoch=epoch,
@@ -126,18 +126,18 @@ class BaseTask:
         )
 
     def train_iters(
-        self,
-        epoch,
-        start_iters,
-        iters_per_inner_epoch,
-        model,
-        data_loader,
-        optimizer,
-        lr_scheduler,
-        scaler=None,
-        cuda_enabled=False,
-        log_freq=50,
-        accum_grad_iters=1,
+            self,
+            epoch,
+            start_iters,
+            iters_per_inner_epoch,
+            model,
+            data_loader,
+            optimizer,
+            lr_scheduler,
+            scaler=None,
+            cuda_enabled=False,
+            log_freq=50,
+            accum_grad_iters=1,
     ):
         return self._train_inner_loop(
             epoch=epoch,
@@ -154,18 +154,18 @@ class BaseTask:
         )
 
     def _train_inner_loop(
-        self,
-        epoch,
-        iters_per_epoch,
-        model,
-        data_loader,
-        optimizer,
-        lr_scheduler,
-        scaler=None,
-        start_iters=None,
-        log_freq=50,
-        cuda_enabled=False,
-        accum_grad_iters=1,
+            self,
+            epoch,
+            iters_per_epoch,
+            model,
+            data_loader,
+            optimizer,
+            lr_scheduler,
+            scaler=None,
+            start_iters=None,
+            log_freq=50,
+            cuda_enabled=False,
+            accum_grad_iters=1,
     ):
         """
         An inner training loop compatible with both epoch-based and iter-based training.
@@ -204,7 +204,7 @@ class BaseTask:
                 break
 
             samples = next(data_loader)
-            samples['focus_image'] = self.gen_focus_imagse(model,samples)
+            samples['focus_image'] = self.gen_focus_imagse(model, samples)
 
             samples = prepare_sample(samples, cuda_enabled=cuda_enabled)
             samples.update(
@@ -230,8 +230,8 @@ class BaseTask:
             if (i + 1) % accum_grad_iters == 0:
                 if use_amp:
                     scaler.step(optimizer)
-                    scaler.update()                     
-                else:    
+                    scaler.update()
+                else:
                     optimizer.step()
                 optimizer.zero_grad()
 
@@ -247,25 +247,31 @@ class BaseTask:
             for k, meter in metric_logger.meters.items()
         }
 
-    def gen_focus_imagse(self,model,samples):
-        gres_data, focus_images = {}, torch.Tensor([]).to(samples['image'].device)
-        gres_data['image'] = samples['image'].permute(0,2,3,1).to("cpu")
-        gres_data['text_input'] = samples['text_input']
-        num_sample = len(gres_data['image'])
+    def gen_focus_imagse(self, model, samples):
+        outputs = model.focus_model_container.GRES_model(samples)
+        # TODO when real training, 'focus_image' should be replaced w/ 'image'
+        # should use raw image or a raw image go through another Conv2D
+        # raw_images = samples['image']
+        raw_images = samples['focus_image']
+        focus_mask = outputs['mask']
+        tmp_images = focus_mask * raw_images
 
-        for i in range(num_sample):
-            tmp = {}
-            tmp['image'] = np.array(gres_data['image'][i])
-            tmp['text_input'] = gres_data['text_input'][i]
-            tmp_res = model.gres_model[0].infer(tmp)
+        focus_images = torch.Tensor([]).to(outputs['mask'].device)
+        # TODO this way will be more appropriate to source paper, but it can't guarantee must contain target
+        # contain_target = outputs['contain_target']
+        contain_target = focus_mask.squeeze(1).sum(dim=1).sum(dim=1)
 
-            focus_image = tmp_res['images'] * tmp_res['mask']
-
-            if focus_image.sum() == 0:
-                focus_image = samples['image'][i].unsqueeze(0)
+        batch_size = raw_images.size(0)
+        for i in range(batch_size):
+            if contain_target[i] == 0:
+                focus_image = raw_images[i, :, :, :]
             else:
-                focus_image = self.cut_focus_image(focus_image)
+                tmp_image = tmp_images[i, :, :, :]
+                focus_image = self.cut_focus_image(tmp_image)
             focus_images = torch.cat((focus_images, focus_image), dim=0)
+        del samples['focus_image']
+        del samples['focus_lang_tokens']
+        del samples['focus_lang_mask']
         return focus_images
 
     def cut_focus_image(self, focus_image):
@@ -285,7 +291,7 @@ class BaseTask:
 
         # resize
         resize = transforms.Resize((224, 224))
-
+        # TODO should use resize or F.interpolate(src_masks, (h, w), mode='bilinear', align_corners=False)?
         resized_image = resize(raw_cuted_focus_image)
         # tmp_cuted_focus_image = Image.fromarray(raw_cuted_focus_image.to('cpu').numpy().astype(np.uint8).transpose(1,2,0))
         # resize_cuted_focus_image = F.resize(tmp_cuted_focus_image, (224, 224))
@@ -331,5 +337,3 @@ class BaseTask:
             print("result file saved to %s" % final_result_file)
 
         return final_result_file
-
-
