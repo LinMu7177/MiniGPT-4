@@ -10,11 +10,12 @@ from torch import nn
 from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 
 from transformers.activations import ACT2FN
-from transformers.modeling_outputs import BaseModelOutputWithPast, CausalLMOutputWithPast, SequenceClassifierOutputWithPast
+from transformers.modeling_outputs import BaseModelOutputWithPast, CausalLMOutputWithPast, \
+    SequenceClassifierOutputWithPast
 from transformers.modeling_utils import PreTrainedModel
-from transformers.utils import add_start_docstrings, add_start_docstrings_to_model_forward, logging, replace_return_docstrings
+from transformers.utils import add_start_docstrings, add_start_docstrings_to_model_forward, logging, \
+    replace_return_docstrings
 from transformers.models.llama.configuration_llama import LlamaConfig
-
 
 logger = logging.get_logger(__name__)
 
@@ -23,7 +24,7 @@ _CONFIG_FOR_DOC = "LlamaConfig"
 
 # Copied from transformers.models.bart.modeling_bart._make_causal_mask
 def _make_causal_mask(
-    input_ids_shape: torch.Size, dtype: torch.dtype, device: torch.device, past_key_values_length: int = 0
+        input_ids_shape: torch.Size, dtype: torch.dtype, device: torch.device, past_key_values_length: int = 0
 ):
     """
     Make causal mask used for bi-directional self-attention.
@@ -109,7 +110,7 @@ class LlamaRotaryEmbedding(torch.nn.Module):
 def rotate_half(x):
     """Rotates half the hidden dims of the input."""
     x1 = x[..., : x.shape[-1] // 2]
-    x2 = x[..., x.shape[-1] // 2 :]
+    x2 = x[..., x.shape[-1] // 2:]
     return torch.cat((-x2, x1), dim=-1)
 
 
@@ -125,10 +126,10 @@ def apply_rotary_pos_emb(q, k, cos, sin, position_ids):
 
 class LlamaMLP(nn.Module):
     def __init__(
-        self,
-        hidden_size: int,
-        intermediate_size: int,
-        hidden_act: str,
+            self,
+            hidden_size: int,
+            intermediate_size: int,
+            hidden_act: str,
     ):
         super().__init__()
         self.gate_proj = nn.Linear(hidden_size, intermediate_size, bias=False)
@@ -166,13 +167,13 @@ class LlamaAttention(nn.Module):
         return tensor.view(bsz, seq_len, self.num_heads, self.head_dim).transpose(1, 2).contiguous()
 
     def forward(
-        self,
-        hidden_states: torch.Tensor,
-        attention_mask: Optional[torch.Tensor] = None,
-        position_ids: Optional[torch.LongTensor] = None,
-        past_key_value: Optional[Tuple[torch.Tensor]] = None,
-        output_attentions: bool = False,
-        use_cache: bool = False,
+            self,
+            hidden_states: torch.Tensor,
+            attention_mask: Optional[torch.Tensor] = None,
+            position_ids: Optional[torch.LongTensor] = None,
+            past_key_value: Optional[Tuple[torch.Tensor]] = None,
+            output_attentions: bool = False,
+            use_cache: bool = False,
     ) -> Tuple[torch.Tensor, Optional[torch.Tensor], Optional[Tuple[torch.Tensor]]]:
         bsz, q_len, _ = hidden_states.size()
 
@@ -245,13 +246,13 @@ class LlamaDecoderLayer(nn.Module):
         self.post_attention_layernorm = LlamaRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
 
     def forward(
-        self,
-        hidden_states: torch.Tensor,
-        attention_mask: Optional[torch.Tensor] = None,
-        position_ids: Optional[torch.LongTensor] = None,
-        past_key_value: Optional[Tuple[torch.Tensor]] = None,
-        output_attentions: Optional[bool] = False,
-        use_cache: Optional[bool] = False,
+            self,
+            hidden_states: torch.Tensor,
+            attention_mask: Optional[torch.Tensor] = None,
+            position_ids: Optional[torch.LongTensor] = None,
+            past_key_value: Optional[Tuple[torch.Tensor]] = None,
+            output_attentions: Optional[bool] = False,
+            use_cache: Optional[bool] = False,
     ) -> Tuple[torch.FloatTensor, Optional[Tuple[torch.FloatTensor, torch.FloatTensor]]]:
         """
         Args:
@@ -428,6 +429,7 @@ class LlamaModel(LlamaPreTrainedModel):
         # just load one layer
         self.layers = nn.ModuleList([LlamaDecoderLayer(config) for _ in range(1)])
         # self.layers = nn.ModuleList([LlamaDecoderLayer(config) for _ in range(config.num_hidden_layers)])
+
         self.norm = LlamaRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
 
         self.gradient_checkpointing = False
@@ -466,17 +468,17 @@ class LlamaModel(LlamaPreTrainedModel):
 
     @add_start_docstrings_to_model_forward(LLAMA_INPUTS_DOCSTRING)
     def forward(
-        self,
-        input_ids: torch.LongTensor = None,
-        attention_mask: Optional[torch.Tensor] = None,
-        position_ids: Optional[torch.LongTensor] = None,
-        past_key_values: Optional[List[torch.FloatTensor]] = None,
-        inputs_embeds: Optional[torch.FloatTensor] = None,
-        query_embeds: Optional[torch.FloatTensor] = None,
-        use_cache: Optional[bool] = None,
-        output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
-        return_dict: Optional[bool] = None,
+            self,
+            input_ids: torch.LongTensor = None,
+            attention_mask: Optional[torch.Tensor] = None,
+            position_ids: Optional[torch.LongTensor] = None,
+            past_key_values: Optional[List[torch.FloatTensor]] = None,
+            inputs_embeds: Optional[torch.FloatTensor] = None,
+            query_embeds: Optional[torch.FloatTensor] = None,
+            use_cache: Optional[bool] = None,
+            output_attentions: Optional[bool] = None,
+            output_hidden_states: Optional[bool] = None,
+            return_dict: Optional[bool] = None,
     ) -> Union[Tuple, BaseModelOutputWithPast]:
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
@@ -629,18 +631,18 @@ class LlamaForCausalLM(LlamaPreTrainedModel):
     @add_start_docstrings_to_model_forward(LLAMA_INPUTS_DOCSTRING)
     @replace_return_docstrings(output_type=CausalLMOutputWithPast, config_class=_CONFIG_FOR_DOC)
     def forward(
-        self,
-        input_ids: torch.LongTensor = None,
-        attention_mask: Optional[torch.Tensor] = None,
-        position_ids: Optional[torch.LongTensor] = None,
-        past_key_values: Optional[List[torch.FloatTensor]] = None,
-        inputs_embeds: Optional[torch.FloatTensor] = None,
-        query_embeds: Optional[torch.FloatTensor] = None,
-        labels: Optional[torch.LongTensor] = None,
-        use_cache: Optional[bool] = None,
-        output_attentions: Optional[bool] = None,
-        output_hidden_states: Optional[bool] = None,
-        return_dict: Optional[bool] = None,
+            self,
+            input_ids: torch.LongTensor = None,
+            attention_mask: Optional[torch.Tensor] = None,
+            position_ids: Optional[torch.LongTensor] = None,
+            past_key_values: Optional[List[torch.FloatTensor]] = None,
+            inputs_embeds: Optional[torch.FloatTensor] = None,
+            query_embeds: Optional[torch.FloatTensor] = None,
+            labels: Optional[torch.LongTensor] = None,
+            use_cache: Optional[bool] = None,
+            output_attentions: Optional[bool] = None,
+            output_hidden_states: Optional[bool] = None,
+            return_dict: Optional[bool] = None,
     ) -> Union[Tuple, CausalLMOutputWithPast]:
         r"""
         Args:
@@ -717,7 +719,7 @@ class LlamaForCausalLM(LlamaPreTrainedModel):
         )
 
     def prepare_inputs_for_generation(
-        self, input_ids, query_embeds=None, past_key_values=None, attention_mask=None, inputs_embeds=None, **kwargs
+            self, input_ids, query_embeds=None, past_key_values=None, attention_mask=None, inputs_embeds=None, **kwargs
     ):
         if past_key_values:
             input_ids = input_ids[:, -1:]
@@ -754,4 +756,3 @@ class LlamaForCausalLM(LlamaPreTrainedModel):
         for layer_past in past_key_values:
             reordered_past += (tuple(past_state.index_select(0, beam_idx) for past_state in layer_past),)
         return reordered_past
-

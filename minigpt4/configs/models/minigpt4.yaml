@@ -13,7 +13,8 @@ model:
   num_query_token: 32
 
   # Vicuna
-  llama_model: "/mnt/local/wwx/Models/MiniGPT-4/weight/"
+  # llama_model: "/mnt/local/wwx/Models/MiniGPT-4/weight/"
+  llama_model: "/mnt/local/wwx/Models/Vicuna/vicuna-7b/"
 
   # generation configs
   prompt: ""

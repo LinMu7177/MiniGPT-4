@@ -39,7 +39,11 @@ run:
 
 
   seed: 42
+<<<<<<< HEAD
   output_dir: "/root/autodl-tmp/wwx/Models/MiniGPT-4/output/vqa"
+=======
+  output_dir: "/mnt/local/wwx/Models/MiniGPT-4/output/vqa"
+>>>>>>> c41d373 (vqa_task_v1)
 
   evaluate: True
   test_splits: ["val"]

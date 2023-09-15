@@ -9,7 +9,6 @@ model:
   ckpt: '/root/autodl-tmp/wwx/Models/MiniGPT-4/pretrained_minigpt4_7b_stage1.pth'
 
 
-
 datasets:
   cc_sbu_align:
     vis_processor:
@@ -37,19 +36,19 @@ run:
   warmup_steps: 200
 
   seed: 42
-<<<<<<< HEAD
-  output_dir: "/root/autodl-tmp/wwx/Models/MiniGPT-4/output/minigpt4_stage2_finetune"
-=======
-  output_dir: "/mnt/local/wwx/Models/MiniGPT-4/output/minigpt4_stage2_finetune"
->>>>>>> 3b0560b (set_up)
+  <<<<<<< HEAD
+output_dir: "/root/autodl-tmp/wwx/Models/MiniGPT-4/output/minigpt4_stage2_finetune"
+  =======
+output_dir: "/mnt/local/wwx/Models/MiniGPT-4/output/minigpt4_stage2_finetune"
+  >>>>>>> 3b0560b (set_up)
 
-  amp: True
-  resume_ckpt_path: null
+amp: True
+resume_ckpt_path: null
 
-  evaluate: False 
-  train_splits: ["train"]
+evaluate: False
+train_splits: [ "train" ]
 
-  device: "cuda"
-  world_size: 1
-  dist_url: "env://"
-  distributed: True
+device: "cuda"
+world_size: 1
+dist_url: "env://"
+distributed: True
