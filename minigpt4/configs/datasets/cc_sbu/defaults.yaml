@@ -2,4 +2,4 @@ datasets:
   cc_sbu:
     data_type: images
     build_info:
-      storage: /mnt/local/wwx/LLM_Data/BLIP/cc_sbu/cc_sbu_dataset/{00000..01255}.tar
+      storage: /mnt/local/wwx/LLM_Data/cc_sbu_dataset/{00000..01255}.tar

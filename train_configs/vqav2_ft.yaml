@@ -1,0 +1,68 @@
+model:
+  arch: mini_gpt4
+  model_type: pretrain_vicuna
+  freeze_vit: True
+  freeze_qformer: True
+  max_txt_len: 160
+  end_sym: "###"
+  prompt_path: "prompts/alignment.txt"
+  prompt_template: '###Human: {} ###Assistant: '
+  ckpt: '/mnt/local/wwx/Models/MiniGPT-4/pretrained_minigpt4_7b.pth'
+
+datasets:
+  coco_vqa: # name of the dataset builder
+    vis_processor:
+        train:
+          name: "blip_image_train"
+          image_size: 224
+        eval:
+          name: "blip_image_eval"
+          image_size: 224
+    text_processor:
+        train:
+          name: "blip_question"
+        eval:
+          name: "blip_question"
+#  vg_vqa: # name of the dataset builder
+#    vis_processor:
+#        train:
+#          name: "blip_image_train"
+#          image_size: 480
+#    text_processor:
+#        train:
+#          name: "blip_question"
+
+run:
+  task: vqa
+  # optimization-specific
+  lr_sched: "linear_warmup_cosine_lr"
+  init_lr: 2e-5
+  min_lr: 1e-5
+  weight_decay: 0.05
+  max_epoch: 5
+  batch_size_train: 16
+  batch_size_eval: 16
+  num_workers: 4
+
+  # inference-specific
+  max_len: 10
+  min_len: 1
+  num_beams: 3
+  num_ans_candidates: 128
+  inference_method: "rank"
+
+  seed: 42
+  output_dir: "/mnt/local/wwx/Models/MiniGPT-4/output/vqa"
+
+  amp: False
+  resume_ckpt_path: null
+
+  evaluate: True
+  train_splits: ["train"]
+  test_splits: ["val"]
+
+  # distribution-specific
+  device: "cuda"
+  world_size: 1
+  dist_url: "env://"
+  distributed: True
