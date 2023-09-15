@@ -7,7 +7,7 @@ model:
   end_sym: "###"
   prompt_path: "prompts/alignment.txt"
   prompt_template: '###Human: {} ###Assistant: '
-  ckpt: '/mnt/local/wwx/Models/MiniGPT-4/pretrained_minigpt4_7b.pth'
+  ckpt: '/root/autodl-tmp/wwx/Models/MiniGPT-4/pretrained_minigpt4_7b.pth'
 
 datasets:
   coco_vqa: # name of the dataset builder
@@ -52,7 +52,7 @@ run:
   inference_method: "rank"
 
   seed: 42
-  output_dir: "/mnt/local/wwx/Models/MiniGPT-4/output/vqa"
+  output_dir: "/root/autodl-tmp/wwx/Models/MiniGPT-4/output/vqa"
 
   amp: False
   resume_ckpt_path: null
