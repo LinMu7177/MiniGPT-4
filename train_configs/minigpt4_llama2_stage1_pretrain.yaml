@@ -1,6 +1,6 @@
 model:
   arch: mini_gpt4
-  model_type: pretrain_vicuna0
+  model_type: pretrain_llama2
 
 
 datasets:
@@ -41,8 +41,7 @@ run:
   iters_per_epoch: 5000
 
   seed: 42
-  output_dir: "/root/autodl-tmp/wwx/Models/MiniGPT-4/output/minigpt4_stage1_finetune"
-
+  output_dir: "output/minigpt4_stage1_pretrain"
 
   amp: True
   resume_ckpt_path: null

@@ -12,17 +12,17 @@ model:
 datasets:
   coco_vqa: # name of the dataset builder
     vis_processor:
-        train:
-          name: "blip_image_train"
-          image_size: 224
-        eval:
-          name: "blip_image_eval"
-          image_size: 224
+      train:
+        name: "blip_image_train"
+        image_size: 224
+      eval:
+        name: "blip_image_eval"
+        image_size: 224
     text_processor:
-        train:
-          name: "blip_question"
-        eval:
-          name: "blip_question"
+      train:
+        name: "blip_question"
+      eval:
+        name: "blip_question"
 #  vg_vqa: # name of the dataset builder
 #    vis_processor:
 #        train:
@@ -52,14 +52,15 @@ run:
   inference_method: "rank"
 
   seed: 42
+
   output_dir: "/root/autodl-tmp/wwx/Models/MiniGPT-4/output/vqa"
 
   amp: False
   resume_ckpt_path: null
 
   evaluate: True
-  train_splits: ["train"]
-  test_splits: ["val"]
+  train_splits: [ "train" ]
+  test_splits: [ "val" ]
 
   # distribution-specific
   device: "cuda"

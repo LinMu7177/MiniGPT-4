@@ -428,6 +428,7 @@ class LlamaModel(LlamaPreTrainedModel):
         # just load one layer
         self.layers = nn.ModuleList([LlamaDecoderLayer(config) for _ in range(1)])
         # self.layers = nn.ModuleList([LlamaDecoderLayer(config) for _ in range(config.num_hidden_layers)])
+
         self.norm = LlamaRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
 
         self.gradient_checkpointing = False
@@ -754,4 +755,3 @@ class LlamaForCausalLM(LlamaPreTrainedModel):
         for layer_past in past_key_values:
             reordered_past += (tuple(past_state.index_select(0, beam_idx) for past_state in layer_past),)
         return reordered_past
-
