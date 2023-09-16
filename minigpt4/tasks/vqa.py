@@ -12,6 +12,8 @@ import os
 import minigpt4.common.dist_utils as dist_utils
 from minigpt4.common.registry import registry
 from minigpt4.tasks.base_task import BaseTask
+from minigpt4.common.vqa_tools.vqa import VQA
+from minigpt4.common.vqa_tools.vqa_eval import VQAEval
 
 
 @registry.register_task("vqa")
