@@ -42,6 +42,9 @@ class BaseDatasetBuilder:
         self.vis_processors = {"train": BaseProcessor(), "eval": BaseProcessor()}
         self.text_processors = {"train": BaseProcessor(), "eval": BaseProcessor()}
 
+        # additional processors, each specified by a name in string.
+        self.kw_processors = {}
+
     def build_datasets(self):
         # download, split, etc...
         # only called on 1 GPU/TPU in distributed
@@ -75,6 +78,11 @@ class BaseDatasetBuilder:
 
             self.text_processors["train"] = self._build_proc_from_cfg(txt_train_cfg)
             self.text_processors["eval"] = self._build_proc_from_cfg(txt_eval_cfg)
+
+        kw_proc_cfg = self.config.get("kw_processor")
+        if kw_proc_cfg is not None:
+            for name, cfg in kw_proc_cfg.items():
+                self.kw_processors[name] = self._build_proc_from_cfg(cfg)
 
     @staticmethod
     def _build_proc_from_cfg(cfg):
@@ -208,7 +216,8 @@ class BaseDatasetBuilder:
             ann_paths = abs_ann_paths
 
             # visual data storage path
-            vis_path = os.path.join(vis_info.storage, split)
+            # vis_path = os.path.join(vis_info.storage, split)
+            vis_path = vis_info.storage
 
             if not os.path.isabs(vis_path):
                 # vis_path = os.path.join(utils.get_cache_path(), vis_path)
